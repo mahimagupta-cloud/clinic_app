@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  get "doctors/index"
+  get "doctors/show"
+  get "doctors/new"
+  get "doctors/edit"
+  get "patient/dashboard"
+  get "admin/dashboard"
+
+  resources :patients
+
   resources :appointments do
     get "slots", on: :collection
 
@@ -12,6 +21,4 @@ Rails.application.routes.draw do
   resources :doctors do
     resources :doctor_availabilities
   end
-
-  get "up" => "rails/health#show", as: :rails_health_check
 end

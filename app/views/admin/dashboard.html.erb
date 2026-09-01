@@ -1,0 +1,33 @@
+<h1>Admin Dashboard</h1>
+
+<h2>Clinic Management</h2>
+
+<ul>
+  <li>
+    <%= link_to "Manage Doctors", doctors_path %>
+  </li>
+
+  <li>
+    <%= link_to "Manage Appointments", appointments_path %>
+  </li>
+
+  <li>
+    <%= link_to "Manage Patients", patients_path %>
+  </li>
+</ul>
+
+<hr>
+
+<h2>Quick Information</h2>
+
+<p>
+  Total Doctors: <%= Doctor.count %>
+</p>
+
+<p>
+  Total Patients: <%= Patient.count %>
+</p>
+
+<p>
+  Total Appointments: <%= Appointment.count %>
+</p>

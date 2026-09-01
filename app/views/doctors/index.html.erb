@@ -1,0 +1,31 @@
+<h1>Doctors</h1>
+
+<% if @doctors.any? %>
+
+  <% @doctors.each do |doctor| %>
+    <div>
+      <h2><%= doctor.name %></h2>
+
+      <p>
+        <strong>Specialization:</strong>
+        <%= doctor.specialization %>
+      </p>
+
+      <p>
+        <strong>Consultation Fee:</strong>
+        <%= doctor.consultation_fee %>
+      </p>
+
+      <%= link_to "View Doctor", doctor_path(doctor) %>
+    </div>
+
+    <hr>
+  <% end %>
+
+<% else %>
+
+  <p>No doctors found.</p>
+
+<% end %>
+
+<%= link_to "Add Doctor", new_doctor_path %>

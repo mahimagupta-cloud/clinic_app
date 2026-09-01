@@ -1,0 +1,55 @@
+<h1><%= @doctor.name %></h1>
+
+<p>
+  <strong>Specialization:</strong>
+  <%= @doctor.specialization %>
+</p>
+
+<p>
+  <strong>Experience:</strong>
+  <%= @doctor.experience %>
+</p>
+
+<p>
+  <strong>Consultation Fee:</strong>
+  <%= @doctor.consultation_fee %>
+</p>
+
+<p>
+  <strong>Bio:</strong>
+  <%= @doctor.bio %>
+</p>
+
+<hr>
+
+<h2>Available Days</h2>
+
+<% if @doctor.doctor_availabilities.any? %>
+
+  <% @doctor.doctor_availabilities.each do |availability| %>
+    <p>
+      Day: <%= availability.day_of_week %>
+      |
+      <%= availability.start_time.strftime("%I:%M %p") %>
+      -
+      <%= availability.end_time.strftime("%I:%M %p") %>
+    </p>
+  <% end %>
+
+<% else %>
+
+  <p>No availability added yet.</p>
+
+<% end %>
+
+<hr>
+
+<%= link_to "Book Appointment", appointments_path %>
+
+<br><br>
+
+<%= link_to "Back to Doctors", doctors_path %>
+
+<br><br>
+
+<%= link_to "Edit Doctor", edit_doctor_path(@doctor) %>
