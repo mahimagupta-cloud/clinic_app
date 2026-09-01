@@ -1,0 +1,72 @@
+
+<h1>Prescription</h1>
+
+<p>
+  <strong>Patient:</strong>
+  <%= @consultation.patient.name %>
+</p>
+
+<p>
+  <strong>Doctor:</strong>
+  <%= @consultation.doctor.name %>
+</p>
+
+<hr>
+
+<h2>Medicines</h2>
+
+<% @prescription.prescription_items.each do |item| %>
+  <p>
+    <strong>Medicine:</strong>
+    <%= item.medicine_name %>
+  </p>
+
+  <p>
+    <strong>Dosage:</strong>
+    <%= item.dosage %>
+  </p>
+
+  <p>
+    <strong>Frequency:</strong>
+    <%= item.frequency %>
+  </p>
+
+  <p>
+    <strong>Duration:</strong>
+    <%= item.duration %>
+  </p>
+
+  <p>
+    <strong>Instructions:</strong>
+    <%= item.instructions %>
+  </p>
+
+  <%= link_to "Delete Medicine",
+      appointment_consultation_prescription_prescription_item_path(
+        @appointment,
+        @consultation,
+        @prescription,
+        item
+      ),
+      data: {
+        turbo_method: :delete,
+        turbo_confirm: "Are you sure?"
+      } %>
+
+  <hr>
+<% end %>
+
+<%= link_to "Back to Consultation",
+    appointment_consultation_path(
+      @appointment,
+      @consultation
+    ) %>
+
+<br><br>
+
+<%= link_to "Add Medicine",
+    new_appointment_consultation_prescription_prescription_item_path(
+      @appointment,
+      @consultation
+    ) %>
+

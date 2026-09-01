@@ -1,0 +1,60 @@
+
+<h1>New Consultation</h1>
+
+<p>
+  <strong>Doctor:</strong>
+  <%= @appointment.doctor.name %>
+</p>
+
+<p>
+  <strong>Patient:</strong>
+  <%= @appointment.patient.name %>
+</p>
+
+<%= form_with model: [@appointment, @consultation] do |form| %>
+
+  <% if @consultation.errors.any? %>
+    <div>
+      <h2><%= pluralize(@consultation.errors.count, "error") %> prevented this consultation from being saved:</h2>
+
+      <ul>
+        <% @consultation.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :symptoms %>
+    <%= form.text_area :symptoms %>
+  </div>
+
+  <div>
+    <%= form.label :diagnosis %>
+    <%= form.text_area :diagnosis %>
+  </div>
+
+  <div>
+    <%= form.label :notes %>
+    <%= form.text_area :notes %>
+  </div>
+
+  <div>
+    <%= form.label :fee %>
+    <%= form.number_field :fee, step: 0.01 %>
+  </div>
+
+  <div>
+    <%= form.label :visited_at %>
+    <%= form.datetime_local_field :visited_at %>
+  </div>
+
+  <div>
+    <%= form.submit "Create Consultation" %>
+  </div>
+
+<% end %>
+
+<%= link_to "Back to Appointment",
+            appointment_path(@appointment) %>

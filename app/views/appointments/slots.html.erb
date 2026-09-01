@@ -1,0 +1,27 @@
+<h1>Available Slots</h1>
+
+<h2><%= @doctor.name %></h2>
+
+<p>
+  Date: <%= @date.strftime("%d %B %Y") %>
+</p>
+
+<% if @slots.any? %>
+
+  <% @slots.each do |slot| %>
+
+    <%= link_to slot.strftime("%I:%M %p"),
+        new_appointment_path(
+          doctor_id: @doctor.id,
+          scheduled_at: slot
+        ) %>
+
+    <br><br>
+
+  <% end %>
+
+<% else %>
+
+  <p>No slots available for this date.</p>
+
+<% end %>

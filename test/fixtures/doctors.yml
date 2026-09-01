@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  clinic: one
+  name: MyString
+  specialization: MyString
+  experience: 1
+  bio: MyText
+  consultation_fee: 9.99
+
+two:
+  clinic: two
+  name: MyString
+  specialization: MyString
+  experience: 1
+  bio: MyText
+  consultation_fee: 9.99

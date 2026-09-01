@@ -1,0 +1,43 @@
+
+<h1>Consultation Details</h1>
+
+<p>
+  <strong>Doctor:</strong>
+  <%= @consultation.doctor.name %>
+</p>
+
+<p>
+  <strong>Patient:</strong>
+  <%= @consultation.patient.name %>
+</p>
+
+<p>
+  <strong>Symptoms:</strong>
+  <%= @consultation.symptoms %>
+</p>
+
+<p>
+  <strong>Diagnosis:</strong>
+  <%= @consultation.diagnosis %>
+</p>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @consultation.notes %>
+</p>
+
+<p>
+  <strong>Fee:</strong>
+  <%= @consultation.fee %>
+</p>
+
+<p>
+  <strong>Visited At:</strong>
+  <%= @consultation.visited_at %>
+</p>
+
+<hr>
+
+<%= link_to "Back to Appointment",
+            appointment_path(@appointment) %>
+

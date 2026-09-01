@@ -1,0 +1,49 @@
+
+<h1>Appointment Details</h1>
+
+<p>
+  <strong>Doctor:</strong>
+  <%= @appointment.doctor.name %>
+</p>
+
+<p>
+  <strong>Patient:</strong>
+  <%= @appointment.patient.name %>
+</p>
+
+<p>
+  <strong>Scheduled At:</strong>
+  <%= @appointment.scheduled_at %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @appointment.status %>
+</p>
+
+<hr>
+
+<% if @appointment.completed? %>
+  <h2>Consultation</h2>
+
+  <% if @appointment.consultation.present? %>
+    <p>
+      Consultation already exists.
+    </p>
+
+    <%= link_to "View Consultation",
+                appointment_consultation_path(
+                  @appointment,
+                  @appointment.consultation
+                ) %>
+  <% else %>
+    <%= link_to "Create Consultation",
+                new_appointment_consultation_path(@appointment) %>
+  <% end %>
+<% end %>
+
+<br><br>
+
+<%= link_to "Edit", edit_appointment_path(@appointment) %> |
+<%= link_to "Back", appointments_path %>
+

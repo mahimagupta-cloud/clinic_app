@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  appointment: one
+  doctor: one
+  patient: one
+  symptoms: MyText
+  diagnosis: MyText
+  notes: MyText
+  fee: 9.99
+  visited_at: 2026-08-26 18:19:07
+
+two:
+  appointment: two
+  doctor: two
+  patient: two
+  symptoms: MyText
+  diagnosis: MyText
+  notes: MyText
+  fee: 9.99
+  visited_at: 2026-08-26 18:19:07

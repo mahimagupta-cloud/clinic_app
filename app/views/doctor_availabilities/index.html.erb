@@ -1,0 +1,48 @@
+<h1>Doctor Availability</h1>
+
+<p>
+  <strong>Doctor:</strong>
+  <%= @doctor.name %>
+</p>
+
+<%= link_to "Add Availability",
+    new_doctor_doctor_availability_path(@doctor) %>
+
+<hr>
+
+<% @availabilities.each do |availability| %>
+
+  <p>
+    <strong>Day:</strong>
+    <%= availability.day_of_week %>
+  </p>
+
+  <p>
+    <strong>Start Time:</strong>
+    <%= availability.start_time.strftime("%I:%M %p") %>
+  </p>
+
+  <p>
+    <strong>End Time:</strong>
+    <%= availability.end_time.strftime("%I:%M %p") %>
+  </p>
+
+  <%= link_to "Edit",
+      edit_doctor_doctor_availability_path(
+        @doctor,
+        availability
+      ) %>
+
+  <%= link_to "Delete",
+      doctor_doctor_availability_path(
+        @doctor,
+        availability
+      ),
+      data: {
+        turbo_method: :delete,
+        turbo_confirm: "Are you sure?"
+      } %>
+
+  <hr>
+
+<% end %>

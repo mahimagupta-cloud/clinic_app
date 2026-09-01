@@ -1,0 +1,42 @@
+
+<h1>New Prescription</h1>
+
+<%= form_with model: [@appointment, @consultation, @prescription] do |form| %>
+
+  <h2>Medicine</h2>
+
+  <div>
+    <%= form.fields_for :prescription_items do |item_form| %>
+
+      <p>
+        <%= item_form.label :medicine_name %>
+        <%= item_form.text_field :medicine_name %>
+      </p>
+
+      <p>
+        <%= item_form.label :dosage %>
+        <%= item_form.text_field :dosage %>
+      </p>
+
+      <p>
+        <%= item_form.label :frequency %>
+        <%= item_form.text_field :frequency %>
+      </p>
+
+      <p>
+        <%= item_form.label :duration %>
+        <%= item_form.text_field :duration %>
+      </p>
+
+      <p>
+        <%= item_form.label :instructions %>
+        <%= item_form.text_area :instructions %>
+      </p>
+
+    <% end %>
+  </div>
+
+  <%= form.submit "Create Prescription" %>
+
+<% end %>
+

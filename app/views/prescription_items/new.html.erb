@@ -1,0 +1,47 @@
+
+<h1>Add Medicine</h1>
+
+<%= form_with model: [
+      @appointment,
+      @consultation,
+      @prescription,
+      @prescription_item
+    ] do |form| %>
+
+  <p>
+    <%= form.label :medicine_name %>
+    <%= form.text_field :medicine_name %>
+  </p>
+
+  <p>
+    <%= form.label :dosage %>
+    <%= form.text_field :dosage %>
+  </p>
+
+  <p>
+    <%= form.label :frequency %>
+    <%= form.text_field :frequency %>
+  </p>
+
+  <p>
+    <%= form.label :duration %>
+    <%= form.text_field :duration %>
+  </p>
+
+  <p>
+    <%= form.label :instructions %>
+    <%= form.text_area :instructions %>
+  </p>
+
+  <%= form.submit "Add Medicine" %>
+
+<% end %>
+
+<br>
+
+<%= link_to "Back to Prescription",
+            appointment_consultation_prescription_path(
+              @appointment,
+              @consultation
+            ) %>
+
