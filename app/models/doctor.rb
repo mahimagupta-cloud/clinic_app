@@ -1,6 +1,6 @@
 class Doctor < ApplicationRecord
   belongs_to :clinic
-
+  belongs_to :user, optional: true
   has_many :appointments, dependent: :destroy
   has_many :patients, through: :appointments
   has_many :doctor_availabilities, dependent: :destroy

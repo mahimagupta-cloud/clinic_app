@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_26_125013) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_02_043729) do
   create_table "appointments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "doctor_id", null: false
@@ -66,7 +66,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_26_125013) do
     t.string "name"
     t.string "specialization"
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["clinic_id"], name: "index_doctors_on_clinic_id"
+    t.index ["user_id"], name: "index_doctors_on_user_id"
   end
 
   create_table "patients", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -75,6 +77,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_26_125013) do
     t.string "name"
     t.string "phone"
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_patients_on_user_id"
   end
 
   create_table "prescription_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -107,6 +111,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_26_125013) do
     t.index ["patient_id"], name: "index_reviews_on_patient_id"
   end
 
+  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at"
+    t.string "reset_password_token"
+    t.integer "role"
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
   add_foreign_key "appointments", "doctors"
   add_foreign_key "appointments", "patients"
   add_foreign_key "consultations", "appointments"
@@ -114,6 +131,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_26_125013) do
   add_foreign_key "consultations", "patients"
   add_foreign_key "doctor_availabilities", "doctors"
   add_foreign_key "doctors", "clinics"
+  add_foreign_key "doctors", "users"
+  add_foreign_key "patients", "users"
   add_foreign_key "prescription_items", "prescriptions"
   add_foreign_key "prescriptions", "consultations"
   add_foreign_key "reviews", "doctors"

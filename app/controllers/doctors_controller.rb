@@ -35,7 +35,16 @@ class DoctorsController < ApplicationController
     end
   end
 
-  private
+def destroy
+  @doctor = Doctor.find(params[:id])
+
+  @doctor.destroy
+
+  redirect_to doctors_path, notice: "Doctor was successfully deleted."
+end
+
+private
+
 
   def doctor_params
     params.require(:doctor).permit(

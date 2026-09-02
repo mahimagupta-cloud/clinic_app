@@ -1,0 +1,22 @@
+<h1>Book Appointment</h1>
+
+<h2><%= @doctor.name %></h2>
+
+<%= form_with url: slots_appointments_path, method: :get do |form| %>
+
+  <%= hidden_field_tag :doctor_id, @doctor.id %>
+
+  <div>
+    <%= label_tag :date, "Select Date" %>
+    <%= date_field_tag :date, Date.current, min: Date.current %>
+  </div>
+
+  <br>
+
+  <%= submit_tag "Check Available Slots" %>
+
+<% end %>
+
+<br>
+
+<%= link_to "Back to Doctor", doctor_path(@doctor) %>

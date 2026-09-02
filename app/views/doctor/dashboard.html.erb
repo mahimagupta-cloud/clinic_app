@@ -1,0 +1,75 @@
+<h1>Doctor Dashboard</h1>
+
+<p>
+  Welcome, Dr. <%= @doctor.name %>
+</p>
+
+<hr>
+
+<h2>Upcoming Appointments</h2>
+
+<% if @upcoming_appointments.any? %>
+
+  <% @upcoming_appointments.each do |appointment| %>
+    <div>
+      <strong>Patient:</strong>
+      <%= appointment.patient.name %>
+      <br>
+
+      <strong>Date & Time:</strong>
+      <%= appointment.scheduled_at.strftime("%d %b %Y, %I:%M %p") %>
+      <br>
+
+      <strong>Status:</strong>
+      <%= appointment.status %>
+      <br><br>
+
+      <%= button_to "Completed",
+          doctor_appointment_status_path(appointment, status: "completed"),
+          method: :patch %>
+
+      <%= button_to "Cancelled",
+          doctor_appointment_status_path(appointment, status: "cancelled"),
+          method: :patch %>
+
+      <%= button_to "No Show",
+          doctor_appointment_status_path(appointment, status: "no_show"),
+          method: :patch %>
+    </div>
+
+    <hr>
+  <% end %>
+
+<% else %>
+
+  <p>No upcoming appointments.</p>
+
+<% end %>
+
+
+<h2>Past Appointments</h2>
+
+<% if @past_appointments.any? %>
+
+  <% @past_appointments.each do |appointment| %>
+    <div>
+      <strong>Patient:</strong>
+      <%= appointment.patient.name %>
+      <br>
+
+      <strong>Date & Time:</strong>
+      <%= appointment.scheduled_at.strftime("%d %b %Y, %I:%M %p") %>
+      <br>
+
+      <strong>Status:</strong>
+      <%= appointment.status %>
+    </div>
+
+    <hr>
+  <% end %>
+
+<% else %>
+
+  <p>No past appointments.</p>
+
+<% end %>

@@ -1,7 +1,7 @@
 class Appointment < ApplicationRecord
   belongs_to :doctor
   belongs_to :patient
-  has_one :consultation
+  has_one :consultation, dependent: :destroy
 
   enum :status, {
     scheduled: 0,

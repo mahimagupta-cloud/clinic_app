@@ -13,7 +13,7 @@
     <%= link_to slot.strftime("%I:%M %p"),
         new_appointment_path(
           doctor_id: @doctor.id,
-          scheduled_at: slot
+          scheduled_at: slot.strftime("%Y-%m-%dT%H:%M")
         ) %>
 
     <br><br>

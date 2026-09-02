@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clinic App</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f9fc;
+      color: #222;
+    }
+
+    .navbar {
+      background: white;
+      padding: 18px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #1769aa;
+    }
+
+    .nav-links a {
+      margin-left: 25px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .hero {
+      background: #eaf5ff;
+      padding: 70px 20px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #555;
+    }
+
+    .search-box {
+      margin: 30px auto;
+      max-width: 700px;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      display: flex;
+      gap: 10px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    }
+
+    .search-box input {
+      flex: 1;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    .search-box button {
+      padding: 15px 25px;
+      border: none;
+      border-radius: 5px;
+      background: #1769aa;
+      color: white;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    .container h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .doctors {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .doctor-card {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .doctor-card h3 {
+      margin-top: 0;
+      color: #1769aa;
+    }
+
+    .doctor-card p {
+      color: #666;
+    }
+
+    .doctor-card a {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 18px;
+      background: #1769aa;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .features {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    .feature {
+      flex: 1;
+      padding: 25px;
+    }
+
+    .feature h3 {
+      color: #1769aa;
+    }
+
+    @media (max-width: 800px) {
+      .doctors {
+        grid-template-columns: 1fr;
+      }
+
+      .features {
+        flex-direction: column;
+      }
+
+      .navbar {
+        padding: 18px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="navbar">
+    <div class="logo">🏥 Clinic App</div>
+
+    <div class="nav-links">
+      <%= link_to "Doctors", doctors_path %>
+      <%= link_to "Patients", patients_path %>
+      <%= link_to "Admin", admin_dashboard_path %>
+    </div>
+  </div>
+
+
+  <section class="hero">
+
+    <h1>Find the right doctor for you</h1>
+
+    <p>
+      Book appointments with trusted doctors easily.
+    </p>
+
+    <%= form_with url: root_path, me  </section>
+
+
+  <div class="container">
+
+    <h2>Find Doctors</h2>
+
+    <div class="doctors">
+
+      <% @doctors.each do |doctor| %>
+
+        <div class="doctor-card">
+
+          <h3>
+            Dr. <%= doctor.name %>
+          </h3>
+
+          <p>
+            <strong>Specialization:</strong>
+            <%= doctor.specialization %>
+          </p>
+
+          <p>
+            <strong>Experience:</strong>
+            <%= doctor.experience %> years
+          </p>
+
+          <p>
+            <strong>Consultation Fee:</strong>
+            ₹<%= doctor.consultation_fee %>
+          </p>
+
+          <%= link_to "View Profile",
+              doctor_path(doctor) %>
+
+        </div>
+
+      <% end %>
+
+    </div>
+
+
+    <div class="features">
+
+      <div class="feature">
+        <h3>🔎 Find Doctors</h3>
+        <p>Search doctors by specialization.</p>
+      </div>
+
+      <div class="feature">
+        <h3>📅 Easy Booking</h3>
+        <p>Choose a date and available time slot.</p>
+      </div>
+
+      <div class="feature">
+        <h3>🩺 Manage Appointments</h3>
+        <p>Keep track of your upcoming appointments.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

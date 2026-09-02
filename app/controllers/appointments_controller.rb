@@ -49,17 +49,29 @@ def slots
     end
   end
 end
-  def create
-    @appointment = Appointment.new(appointment_params)
+def create
+  @appointment = Appointment.new(appointment_params)
 
+  begin
     if @appointment.save
       redirect_to @appointment, notice: "Appointment was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
+  rescue ActiveRecord::RecordNotUnique
+    @appointment.errors.add(
+      :scheduled_at,
+      "has already been booked. Please choose another slot."
+    )
+    render :new, status: :unprocessable_entity
   end
+end
 
   def edit
+  end
+
+  def book
+  @doctor = Doctor.find(params[:doctor_id])
   end
 
   def update
