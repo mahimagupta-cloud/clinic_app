@@ -1,5 +1,7 @@
 class AddRoleToUsers < ActiveRecord::Migration[8.1]
   def change
-    add_column :users, :role, :integer
+    unless column_exists?(:users, :role)
+      add_column :users, :role, :integer
+    end
   end
 end

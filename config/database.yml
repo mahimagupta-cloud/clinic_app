@@ -2,7 +2,8 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  url: <%= ENV["DATABASE_URL"] %>
+  url: postgresql://neondb_owner:npg_FsJWBOhp5Le4@ep-mute-dust-ayi5x3qa-pooler.c-5.us-east-2.aws.neon.tech/clinic?sslmode=require&channel_binding=require
+  sslmode: require
 
 development:
   <<: *default
