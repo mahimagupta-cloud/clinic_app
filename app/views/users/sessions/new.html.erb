@@ -1,0 +1,69 @@
+<% if params[:role] == "doctor" || session[:login_role] == "doctor" %>
+
+  <h2>Doctor Login</h2>
+
+<% else %>
+
+  <h2>Patient Login</h2>
+
+<% end %>
+
+
+<%= form_for(
+      resource,
+      as: resource_name,
+      url: session_path(resource_name)
+    ) do |f| %>
+
+
+  <div>
+
+    <%= f.label :email %><br>
+
+    <%= f.email_field :email,
+        autofocus: true,
+        autocomplete: "email" %>
+
+  </div>
+
+
+  <br>
+
+
+  <div>
+
+    <%= f.label :password %><br>
+
+    <%= f.password_field :password,
+        autocomplete: "current-password" %>
+
+  </div>
+
+
+  <br>
+
+
+  <div>
+
+    <%= f.submit "Log in" %>
+
+  </div>
+
+
+<% end %>
+
+
+<br>
+
+
+<% if session[:login_role] == "doctor" %>
+
+  <%= link_to "Back",
+      root_path %>
+
+<% else %>
+
+  <%= link_to "Back",
+      root_path %>
+
+<% end %>

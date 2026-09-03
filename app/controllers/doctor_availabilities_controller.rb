@@ -1,6 +1,8 @@
 class DoctorAvailabilitiesController < ApplicationController
   before_action :set_doctor
-  before_action :set_availability, only: [:edit, :update, :destroy]
+  before_action :set_availability, only: [ :edit, :update, :destroy ]
+  before_action :authenticate_user!
+  before_action :require_doctor!
 
   def index
     @availabilities = @doctor.doctor_availabilities
@@ -38,10 +40,13 @@ class DoctorAvailabilitiesController < ApplicationController
   end
 
   private
+def set_doctor
+  @doctor = current_user.doctor
 
-  def set_doctor
-    @doctor = Doctor.find(params[:doctor_id])
+  unless @doctor && @doctor.id.to_s == params[:doctor_id]
+    redirect_to root_path, alert: "Access denied."
   end
+end
 
   def set_availability
     @availability = @doctor.doctor_availabilities.find(params[:id])
@@ -53,5 +58,11 @@ class DoctorAvailabilitiesController < ApplicationController
       :start_time,
       :end_time
     )
+  end
+end
+
+def require_doctor!
+  unless current_user.doctor?
+    redirect_to root_path, alert: "Access denied."
   end
 end

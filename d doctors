@@ -1,0 +1,19 @@
+                   List of relations
+ Schema |         Name          | Type  |    Owner     
+--------+-----------------------+-------+--------------
+ public | appointments          | table | neondb_owner
+ public | ar_internal_metadata  | table | neondb_owner
+ public | clinics               | table | neondb_owner
+ public | consultations         | table | neondb_owner
+ public | doctor_availabilities | table | neondb_owner
+ public | doctors               | table | neondb_owner
+ public | patients              | table | neondb_owner
+ public | payments              | table | neondb_owner
+ public | prescription_items    | table | neondb_owner
+ public | prescriptions         | table | neondb_owner
+ public | reviews               | table | neondb_owner
+ public | schema_migrations     | table | neondb_owner
+ public | sessions              | table | neondb_owner
+ public | users                 | table | neondb_owner
+(14 rows)
+

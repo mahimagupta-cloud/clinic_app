@@ -1,0 +1,128 @@
+<div style="
+  max-width: 800px;
+  margin: 80px auto;
+  text-align: center;
+">
+
+  <h1>Welcome to Clinic App</h1>
+
+  <p style="font-size: 18px;">
+    Please select how you want to continue
+  </p>
+
+
+  <div style="
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  ">
+
+
+    <!-- ========================= -->
+    <!-- Patient -->
+    <!-- ========================= -->
+
+    <div style="
+      padding: 30px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      width: 280px;
+    ">
+
+      <h2>👤 Patient</h2>
+
+      <p>
+        Book appointments and manage your consultations.
+      </p>
+
+
+      <!-- Patient Login -->
+
+      <%= link_to "Patient Login",
+          patient_login_path(role: "patient"),
+          data: { turbo: false },
+          style: "
+            display: inline-block;
+            margin: 8px;
+            padding: 12px 20px;
+            background: #1769aa;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+          " %>
+
+
+      <!-- Patient Sign Up -->
+
+      <%= link_to "Patient Sign Up",
+          new_user_registration_path(role: "patient"),
+          data: { turbo: false },
+          style: "
+            display: inline-block;
+            margin: 8px;
+            padding: 12px 20px;
+            background: #555;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+          " %>
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- Doctor -->
+    <!-- ========================= -->
+
+    <div style="
+      padding: 30px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      width: 280px;
+    ">
+
+      <h2>👨‍⚕️ Doctor</h2>
+
+      <p>
+        Manage appointments and consultations.
+      </p>
+
+
+      <!-- Doctor Login -->
+
+      <%= link_to "Doctor Login",
+          doctor_login_path(role: "doctor"),
+          data: { turbo: false },
+          style: "
+            display: inline-block;
+            margin: 8px;
+            padding: 12px 20px;
+            background: #1769aa;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+          " %>
+
+
+      <!-- Doctor Sign Up -->
+
+      <%= link_to "Doctor Sign Up",
+          new_user_registration_path(role: "doctor"),
+          data: { turbo: false },
+          style: "
+            display: inline-block;
+            margin: 8px;
+            padding: 12px 20px;
+            background: #555;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+          " %>
+
+    </div>
+
+  </div>
+
+</div>

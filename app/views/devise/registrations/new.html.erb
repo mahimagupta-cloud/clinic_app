@@ -1,67 +1,148 @@
 <div style="max-width: 500px; margin: 40px auto; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
 
-  <h2>Create Patient Account</h2>
+  <% if params[:role] == "doctor" || session[:signup_role] == "doctor" %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <h2>Create Doctor Account</h2>
 
-```
-<%= render "devise/shared/error_messages", resource: resource %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
 
-<h3>Patient Details</h3>
+      <%= render "devise/shared/error_messages", resource: resource %>
 
-<div style="margin-bottom: 15px;">
-  <%= label_tag "patient_name", "Name" %><br>
-  <%= text_field_tag "patient[name]",
-      params.dig(:patient, :name),
-      required: true,
-      style: "width: 100%; padding: 8px;" %>
-</div>
+      <h3>Doctor Details</h3>
 
-<div style="margin-bottom: 15px;">
-  <%= label_tag "patient_phone", "Phone" %><br>
-  <%= telephone_field_tag "patient[phone]",
-      params.dig(:patient, :phone),
-      required: true,
-      style: "width: 100%; padding: 8px;" %>
-</div>
+      <div style="margin-bottom: 15px;">
+        <%= label_tag "doctor_name", "Name" %><br>
+        <%= text_field_tag "doctor[name]",
+            params.dig(:doctor, :name),
+            required: true,
+            style: "width: 100%; padding: 8px;" %>
+      </div>
 
-<h3>Login Details</h3>
+      <div style="margin-bottom: 15px;">
+        <%= label_tag "doctor_specialization", "Specialization" %><br>
+        <%= text_field_tag "doctor[specialization]",
+            params.dig(:doctor, :specialization),
+            required: true,
+            style: "width: 100%; padding: 8px;" %>
+      </div>
 
-<div style="margin-bottom: 15px;">
-  <%= f.label :email %><br>
-  <%= f.email_field :email,
-      autofocus: true,
-      autocomplete: "email",
-      required: true,
-      style: "width: 100%; padding: 8px;" %>
-</div>
+      <div style="margin-bottom: 15px;">
+        <%= label_tag "doctor_experience", "Experience (years)" %><br>
+        <%= number_field_tag "doctor[experience]",
+            params.dig(:doctor, :experience),
+            required: true,
+            style: "width: 100%; padding: 8px;" %>
+      </div>
 
-<div style="margin-bottom: 15px;">
-  <%= f.label :password %><br>
-  <%= f.password_field :password,
-      autocomplete: "new-password",
-      required: true,
-      style: "width: 100%; padding: 8px;" %>
-</div>
+      <div style="margin-bottom: 15px;">
+        <%= label_tag "doctor_bio", "Bio" %><br>
+        <%= text_area_tag "doctor[bio]",
+            params.dig(:doctor, :bio),
+            style: "width: 100%; padding: 8px;" %>
+      </div>
 
-<div style="margin-bottom: 20px;">
-  <%= f.label :password_confirmation %><br>
-  <%= f.password_field :password_confirmation,
-      autocomplete: "new-password",
-      required: true,
-      style: "width: 100%; padding: 8px;" %>
-</div>
+      <div style="margin-bottom: 15px;">
+        <%= label_tag "doctor_consultation_fee", "Consultation Fee" %><br>
+        <%= number_field_tag "doctor[consultation_fee]",
+            params.dig(:doctor, :consultation_fee),
+            required: true,
+            style: "width: 100%; padding: 8px;" %>
+      </div>
 
-<div>
-  <%= f.submit "Create Patient Account",
-      style: "padding: 10px 20px; cursor: pointer;" %>
-</div>
-```
+      <h3>Login Details</h3>
 
-<% end %>
+      <div style="margin-bottom: 15px;">
+        <%= f.label :email %><br>
+        <%= f.email_field :email,
+            autofocus: true,
+            autocomplete: "email",
+            required: true,
+            style: "width: 100%; padding: 8px;" %>
+      </div>
+
+      <div style="margin-bottom: 15px;">
+        <%= f.label :password %><br>
+        <%= f.password_field :password,
+            autocomplete: "new-password",
+            required: true,
+            style: "width: 100%; padding: 8px;" %>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <%= f.label :password_confirmation %><br>
+        <%= f.password_field :password_confirmation,
+            autocomplete: "new-password",
+            required: true,
+            style: "width: 100%; padding: 8px;" %>
+      </div>
+
+      <%= f.submit "Create Doctor Account",
+          style: "padding: 10px 20px; cursor: pointer;" %>
+
+    <% end %>
+
+  <% else %>
+
+    <h2>Create Patient Account</h2>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <h3>Patient Details</h3>
+
+      <div style="margin-bottom: 15px;">
+        <%= label_tag "patient_name", "Name" %><br>
+        <%= text_field_tag "patient[name]",
+            params.dig(:patient, :name),
+            required: true,
+            style: "width: 100%; padding: 8px;" %>
+      </div>
+
+      <div style="margin-bottom: 15px;">
+        <%= label_tag "patient_phone", "Phone" %><br>
+        <%= telephone_field_tag "patient[phone]",
+            params.dig(:patient, :phone),
+            required: true,
+            style: "width: 100%; padding: 8px;" %>
+      </div>
+
+      <h3>Login Details</h3>
+
+      <div style="margin-bottom: 15px;">
+        <%= f.label :email %><br>
+        <%= f.email_field :email,
+            autofocus: true,
+            autocomplete: "email",
+            required: true,
+            style: "width: 100%; padding: 8px;" %>
+      </div>
+
+      <div style="margin-bottom: 15px;">
+        <%= f.label :password %><br>
+        <%= f.password_field :password,
+            autocomplete: "new-password",
+            required: true,
+            style: "width: 100%; padding: 8px;" %>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <%= f.label :password_confirmation %><br>
+        <%= f.password_field :password_confirmation,
+            autocomplete: "new-password",
+            required: true,
+            style: "width: 100%; padding: 8px;" %>
+      </div>
+
+      <%= f.submit "Create Patient Account",
+          style: "padding: 10px 20px; cursor: pointer;" %>
+
+    <% end %>
+
+  <% end %>
 
   <hr style="margin: 25px 0;">
 
-<%= render "devise/shared/links" %>
+  <%= link_to "Back", root_path %>
 
 </div>

@@ -2,6 +2,7 @@ class PatientController < ApplicationController
   before_action :authenticate_user!
   before_action :require_patient!
 
+  # Patient Dashboard
   def dashboard
     @patient = current_user.patient
 
@@ -18,6 +19,22 @@ class PatientController < ApplicationController
       Time.current,
       [ "completed", "cancelled", "no_show" ]
     )
+  end
+
+  # Patient list
+  def index
+  end
+
+  # Patient details
+  def show
+  end
+
+  # New patient
+  def new
+  end
+
+  # Edit patient
+  def edit
   end
 
   private

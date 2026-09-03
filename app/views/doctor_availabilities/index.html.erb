@@ -12,11 +12,8 @@
 
 <% @availabilities.each do |availability| %>
 
-  <p>
-    <strong>Day:</strong>
-    <%= availability.day_of_week %>
-  </p>
-
+ <strong>Day:</strong>
+<%= Date::DAYNAMES[availability.day_of_week] %>
   <p>
     <strong>Start Time:</strong>
     <%= availability.start_time.strftime("%I:%M %p") %>

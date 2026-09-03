@@ -1,3 +1,25 @@
+<div style="
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+">
+
+  <h1>Patient Dashboard</h1>
+
+  <%= button_to "Logout",
+      destroy_user_session_path,
+      method: :delete,
+      style: "
+        padding: 10px 18px;
+        background: #d32f2f;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      " %>
+
+</div>
 <div style="max-width: 1100px; margin: 40px auto; font-family: Arial, sans-serif;">
 
   <!-- Header -->
