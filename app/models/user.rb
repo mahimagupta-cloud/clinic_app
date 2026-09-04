@@ -1,9 +1,9 @@
 class User < ApplicationRecord
   enum :role, {
-    patient: 0,
-    admin: 1,
-    doctor: 2
-  }
+  patient: 0,
+  doctor: 1,
+  admin: 2
+}
 
   has_one :patient, dependent: :destroy
   has_one :doctor, dependent: :destroy

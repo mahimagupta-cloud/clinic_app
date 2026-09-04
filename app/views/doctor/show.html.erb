@@ -65,8 +65,8 @@
         <div style="padding: 12px 0; border-bottom: 1px solid #eee;">
 
           <strong>
-            <%= Date::DAYNAMES[availability.day_of_week] %>
-          </strong>
+  <%= availability.date.strftime("%d %B %Y") %>
+</strong> 
 
           :
 
@@ -134,25 +134,19 @@
   </div>
 
 
-  <!-- Navigation -->
+ <!-- Navigation -->
 
-  <div style="margin-top: 30px;">
+<div style="margin-top: 30px;">
 
-    <%= link_to "← Back to Doctors", doctors_path %>
-
-    <br><br>
-
-    <%= link_to "Edit Doctor", edit_doctor_path(@doctor) %>
-
-    <br><br>
-
-    <%= button_to "Delete Doctor",
-        doctor_path(@doctor),
-        method: :delete,
-        data: {
-          turbo_confirm: "Are you sure you want to delete this doctor?"
-        } %>
-
-  </div>
+  <%= link_to "← Back to Doctors",
+      doctors_path,
+      style: "
+        display:inline-block;
+        padding:10px 20px;
+        background:#1976d2;
+        color:white;
+        text-decoration:none;
+        border-radius:7px;
+      " %>
 
 </div>

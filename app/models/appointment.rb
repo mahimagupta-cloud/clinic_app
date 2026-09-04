@@ -29,20 +29,26 @@ class Appointment < ApplicationRecord
   end
 
   def doctor_must_be_available
-    return if doctor.blank? || scheduled_at.blank?
+  return if doctor.blank? || scheduled_at.blank?
 
-    day = scheduled_at.wday
-    time = scheduled_at.strftime("%H:%M:%S")
+  availability = doctor.doctor_availabilities.find_by(
+    date: scheduled_at.to_date
+  )
 
-    available = doctor.doctor_availabilities.where(day_of_week: day).any? do |availability|
-      time >= availability.start_time.strftime("%H:%M:%S") &&
-        time <= availability.end_time.strftime("%H:%M:%S")
-    end
-
-    unless available
-      errors.add(:scheduled_at, "doctor is not available at this time")
-    end
+  unless availability
+    errors.add(:scheduled_at, "doctor is not available on this date")
+    return
   end
+
+  appointment_time = scheduled_at.strftime("%H:%M:%S")
+
+  start_time = availability.start_time.strftime("%H:%M:%S")
+  end_time = availability.end_time.strftime("%H:%M:%S")
+
+  unless appointment_time >= start_time && appointment_time <= end_time
+    errors.add(:scheduled_at, "doctor is not available at this time")
+  end
+end
 
   def cannot_cancel_past_appointment
     return unless cancelled?
@@ -65,6 +71,9 @@ class Appointment < ApplicationRecord
     return if previous_status == status
     return if allowed_transitions[previous_status]&.include?(status)
 
-    errors.add(:status, "cannot be changed from #{previous_status} to #{status}")
+    errors.add(
+      :status,
+      "cannot be changed from #{previous_status} to #{status}"
+    )
   end
 end

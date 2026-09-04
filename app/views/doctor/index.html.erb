@@ -1,31 +1,303 @@
-<h1>Doctors</h1>
+<div style="
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+">
 
-<% if @doctors.any? %>
+  <!-- Header -->
+  <div style="
+    text-align: center;
+    margin-bottom: 35px;
+  ">
+    <h1 style="font-size: 36px; margin-bottom: 10px;">
+      Find a Doctor
+    </h1>
 
-  <% @doctors.each do |doctor| %>
-    <div>
-      <h2><%= doctor.name %></h2>
+    <p style="color: #666; font-size: 17px;">
+      Find the right doctor for your consultation
+    </p>
+  </div>
 
-      <p>
-        <strong>Specialization:</strong>
-        <%= doctor.specialization %>
-      </p>
 
-      <p>
-        <strong>Consultation Fee:</strong>
-        <%= doctor.consultation_fee %>
-      </p>
+  <!-- Search Box -->
+  <div style="
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    margin-bottom: 35px;
+  ">
 
-      <%= link_to "View Doctor", doctor_path(doctor) %>
+    <%= form_with url: doctors_path,
+                  method: :get,
+                  local: true do |f| %>
+
+      <div style="
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr auto;
+        gap: 15px;
+        align-items: end;
+      ">
+
+        <!-- Doctor Name -->
+        <div>
+          <%= f.label :name, "Doctor Name",
+              style: "display:block; font-weight:bold; margin-bottom:7px;" %>
+
+          <%= f.text_field :name,
+              value: params[:name],
+              placeholder: "Search doctor...",
+              style: "
+                width:100%;
+                padding:12px;
+                border:1px solid #ddd;
+                border-radius:8px;
+                box-sizing:border-box;
+              " %>
+        </div>
+
+
+        <!-- Specialization -->
+        <div>
+          <%= f.label :specialization, "Specialization",
+              style: "display:block; font-weight:bold; margin-bottom:7px;" %>
+
+          <%= f.text_field :specialization,
+              value: params[:specialization],
+              placeholder: "e.g. Cardiologist",
+              style: "
+                width:100%;
+                padding:12px;
+                border:1px solid #ddd;
+                border-radius:8px;
+                box-sizing:border-box;
+              " %>
+        </div>
+
+
+        <!-- Location -->
+        <div>
+          <%= f.label :location, "Location",
+              style: "display:block; font-weight:bold; margin-bottom:7px;" %>
+
+          <%= f.text_field :location,
+              value: params[:location],
+              placeholder: "e.g. Delhi",
+              style: "
+                width:100%;
+                padding:12px;
+                border:1px solid #ddd;
+                border-radius:8px;
+                box-sizing:border-box;
+              " %>
+        </div>
+
+
+        <!-- Search Button -->
+        <div>
+          <%= f.submit "Search",
+              style: "
+                padding:12px 25px;
+                background:#1976d2;
+                color:white;
+                border:none;
+                border-radius:8px;
+                cursor:pointer;
+                font-size:15px;
+              " %>
+        </div>
+
+      </div>
+
+    <% end %>
+
+
+    <!-- Clear Search -->
+    <div style="margin-top:15px;">
+      <%= link_to "Clear Search",
+          doctors_path,
+          style: "color:#1976d2; text-decoration:none;" %>
     </div>
 
-    <hr>
+  </div>
+
+
+  <!-- Doctor Results -->
+
+  <% if @doctors.any? %>
+
+    <div style="
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+      gap:25px;
+    ">
+
+      <% @doctors.each do |doctor| %>
+
+        <div style="
+          background:white;
+          border-radius:14px;
+          padding:25px;
+          box-shadow:0 3px 15px rgba(0,0,0,0.08);
+        ">
+
+          <!-- Doctor Icon -->
+          <div style="
+            width:65px;
+            height:65px;
+            border-radius:50%;
+            background:#e3f2fd;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:30px;
+            margin-bottom:18px;
+          ">
+            👨‍⚕️
+          </div>
+
+
+          <!-- Doctor Name -->
+          <h2 style="
+            margin:0 0 10px 0;
+            font-size:23px;
+          ">
+            <%= doctor.name %>
+          </h2>
+
+
+          <!-- Specialization -->
+          <p style="
+            color:#1976d2;
+            font-weight:bold;
+            margin:8px 0;
+          ">
+            🩺 <%= doctor.specialization %>
+          </p>
+
+
+          <!-- Experience -->
+          <% if doctor.experience.present? %>
+            <p style="color:#555;">
+              <strong>Experience:</strong>
+              <%= doctor.experience %> years
+            </p>
+          <% end %>
+
+
+          <!-- Location -->
+          <% if doctor.clinic.present? %>
+
+            <p style="
+              color:#555;
+              margin:8px 0;
+            ">
+              <strong>📍 Location:</strong>
+              <%= doctor.clinic.city %>
+            </p>
+
+            <% if doctor.clinic.address.present? %>
+
+              <p style="
+                color:#777;
+                font-size:14px;
+                margin:5px 0;
+              ">
+                <strong>Address:</strong>
+                <%= doctor.clinic.address %>
+              </p>
+
+            <% end %>
+
+          <% else %>
+
+            <p style="
+              color:#999;
+              margin:8px 0;
+            ">
+              <strong>📍 Location:</strong>
+              Not available
+            </p>
+
+          <% end %>
+
+
+          <!-- Consultation Fee -->
+          <p style="
+            font-size:18px;
+            font-weight:bold;
+            margin-top:15px;
+          ">
+            ₹<%= doctor.consultation_fee %>
+
+            <span style="
+              font-size:13px;
+              color:#777;
+              font-weight:normal;
+            ">
+              / consultation
+            </span>
+          </p>
+
+
+          <!-- View Doctor -->
+          <div style="margin-top:20px;">
+
+            <%= link_to "View Doctor",
+                doctor_path(doctor),
+                style: "
+                  display:inline-block;
+                  padding:10px 20px;
+                  background:#1976d2;
+                  color:white;
+                  text-decoration:none;
+                  border-radius:7px;
+                " %>
+
+          </div>
+
+        </div>
+
+      <% end %>
+
+    </div>
+
+  <% else %>
+
+    <!-- No Results -->
+
+    <div style="
+      text-align:center;
+      background:white;
+      padding:50px;
+      border-radius:14px;
+      box-shadow:0 3px 15px rgba(0,0,0,0.08);
+    ">
+
+      <div style="font-size:50px;">
+        🔍
+      </div>
+
+      <h2>No doctors found</h2>
+
+      <p style="color:#666;">
+        Try changing your search criteria.
+      </p>
+
+      <%= link_to "View All Doctors",
+          doctors_path,
+          style: "
+            display:inline-block;
+            margin-top:15px;
+            padding:10px 20px;
+            background:#1976d2;
+            color:white;
+            text-decoration:none;
+            border-radius:7px;
+          " %>
+
+    </div>
+
   <% end %>
 
-<% else %>
-
-  <p>No doctors found.</p>
-
-<% end %>
-
-<%= link_to "Add Doctor", new_doctor_path %>
+</div>

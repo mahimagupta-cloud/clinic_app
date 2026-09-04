@@ -1,5 +1,4 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-
   def new
     session[:signup_role] = params[:role] if params[:role].present?
     super
@@ -62,5 +61,4 @@ class Users::RegistrationsController < Devise::RegistrationsController
       :password_confirmation
     )
   end
-
 end

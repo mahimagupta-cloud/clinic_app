@@ -1,4 +1,4 @@
-<h1>New Appointment</h1>
+<h1>Confirm Appointment</h1>
 
 <%= form_with model: @appointment do |form| %>
 
@@ -18,36 +18,39 @@
   <% end %>
 
   <div>
-    <%= form.label :doctor_id, "Doctor" %>
-
-    <%= form.collection_select :doctor_id,
-        Doctor.all,
-        :id,
-        :name,
-        prompt: "Select Doctor" %>
+    <strong>Doctor:</strong>
+    <%= @appointment.doctor&.name %>
   </div>
+
+  <br>
 
   <div>
-    <%= form.label :patient_id, "Patient" %>
-
-    <%= form.collection_select :patient_id,
-        Patient.all,
-        :id,
-        :name,
-        prompt: "Select Patient" %>
+    <strong>Patient:</strong>
+    <%= current_user.patient&.name %>
   </div>
+
+  <br>
 
   <div>
-    <%= form.label :scheduled_at, "Appointment Time" %>
-
-  <%= form.datetime_local_field :scheduled_at,
-    value: @appointment.scheduled_at&.strftime("%Y-%m-%dT%H:%M") %>
+    <strong>Appointment Date & Time:</strong>
+    <%= @appointment.scheduled_at&.strftime("%d %B %Y, %I:%M %p") %>
   </div>
 
-  <div>
-    <%= form.submit "Book Appointment" %>
-  </div>
+  <br>
+
+  <%= form.hidden_field :doctor_id, value: @appointment.doctor_id %>
+
+  <%= form.hidden_field :scheduled_at,
+      value: @appointment.scheduled_at&.strftime("%Y-%m-%dT%H:%M") %>
+
+  <%= form.submit "Confirm Appointment" %>
 
 <% end %>
 
-<%= link_to "Back to Appointments", appointments_path %>
+<br>
+
+<%= link_to "Back to Available Slots",
+    slots_appointments_path(
+      doctor_id: @appointment.doctor_id,
+      date: @appointment.scheduled_at&.to_date
+    ) %>

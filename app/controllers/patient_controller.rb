@@ -8,17 +8,17 @@ class PatientController < ApplicationController
 
     @appointments = @patient.appointments.includes(:doctor)
 
-    @upcoming_appointments = @appointments.where(
-      "scheduled_at >= ? AND status = ?",
-      Time.current,
-      "scheduled"
-    )
+  @upcoming_appointments = @appointments.where(
+  "scheduled_at >= ? AND status = ?",
+  Time.current,
+  Appointment.statuses[:scheduled]
+)
 
-    @past_appointments = @appointments.where(
-      "scheduled_at < ? OR status IN (?)",
-      Time.current,
-      [ "completed", "cancelled", "no_show" ]
-    )
+@past_appointments = @appointments.where(
+  "scheduled_at < ? OR status IN (?)",
+  Time.current,
+  Appointment.statuses.values_at(:completed, :cancelled, :no_show)
+)
   end
 
   # Patient list

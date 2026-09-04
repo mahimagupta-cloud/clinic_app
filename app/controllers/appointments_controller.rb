@@ -21,7 +21,7 @@ def slots
   @date = Date.parse(params[:date])
 
   @availability = @doctor.doctor_availabilities.find_by(
-    day_of_week: @date.wday
+    date: @date
   )
 
   @slots = []
@@ -52,9 +52,12 @@ end
 def create
   @appointment = Appointment.new(appointment_params)
 
+  @appointment.patient = current_user.patient
+  @appointment.status = :scheduled
+
   begin
     if @appointment.save
-      redirect_to @appointment, notice: "Appointment was successfully created."
+      redirect_to @appointment, notice: "Appointment was successfully booked."
     else
       render :new, status: :unprocessable_entity
     end
@@ -63,6 +66,7 @@ def create
       :scheduled_at,
       "has already been booked. Please choose another slot."
     )
+
     render :new, status: :unprocessable_entity
   end
 end
@@ -91,7 +95,7 @@ end
   def appointment_params
     params.require(:appointment).permit(
       :doctor_id,
-      :patient_id,
+      # :patient_id,
       :scheduled_at,
       :status
     )
