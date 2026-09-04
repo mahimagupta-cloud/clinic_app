@@ -122,7 +122,8 @@ class DoctorController < ApplicationController
       :specialization,
       :experience,
       :bio,
-      :consultation_fee
+      :consultation_fee,
+      :location
     )
   end
 end

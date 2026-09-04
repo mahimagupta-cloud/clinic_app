@@ -60,6 +60,7 @@ Rails.application.routes.draw do
 
     get "book",
         on: :collection
+    patch "cancel", on: :member
 
     resources :consultations do
       resource :prescription do

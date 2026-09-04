@@ -40,6 +40,13 @@
             params.dig(:doctor, :bio),
             style: "width: 100%; padding: 8px;" %>
       </div>
+      <div style="margin-bottom: 15px;">
+        <%= label_tag "doctoer_location", "location" %><br>
+        <%= text_area_tag "doctor[location]",
+            params.dig(:doctor, :location),
+            style: "width: 100%; padding: 8px;" %>
+      </div>
+
 
       <div style="margin-bottom: 15px;">
         <%= label_tag "doctor_consultation_fee", "Consultation Fee" %><br>

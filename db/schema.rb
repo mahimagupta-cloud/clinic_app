@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_04_070848) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_04_123544) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -67,6 +67,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_04_070848) do
     t.decimal "consultation_fee", precision: 10
     t.datetime "created_at", null: false
     t.integer "experience"
+    t.string "location"
     t.string "medical_license_number"
     t.string "name"
     t.string "specialization"

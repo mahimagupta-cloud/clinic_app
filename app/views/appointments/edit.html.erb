@@ -1,45 +1,52 @@
-
 <h1>Edit Appointment</h1>
 
-<%= form_with model: @appointment do |form| %>
+<div>
+  <p>
+    <strong>Doctor:</strong>
+    <%= @appointment.doctor.name %>
+  </p>
 
-  <% if @appointment.errors.any? %>
+  <p>
+    <strong>Patient:</strong>
+    <%= @appointment.patient.name %>
+  </p>
+
+  <p>
+    <strong>Appointment Date & Time:</strong>
+    <%= @appointment.scheduled_at.strftime("%d %B %Y, %I:%M %p") %>
+  </p>
+
+  <%= form_with model: @appointment do |form| %>
+
+    <% if @appointment.errors.any? %>
+      <div>
+        <h3>
+          <%= pluralize(@appointment.errors.count, "error") %>
+          prevented this appointment from being updated:
+        </h3>
+
+        <ul>
+          <% @appointment.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <div>
-      <h2><%= pluralize(@appointment.errors.count, "error") %> prevented the update:</h2>
+      <%= form.label :status, "Status" %>
 
-      <ul>
-        <% @appointment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+      <%= form.select :status,
+          Appointment.statuses.keys.map { |status| [status.humanize, status] } %>
     </div>
+
+    <br>
+
+    <%= form.submit "Update Appointment" %>
+
   <% end %>
 
-  <div>
-    <%= form.label :doctor_id, "Doctor" %>
-    <%= form.collection_select :doctor_id, Doctor.all, :id, :name %>
-  </div>
+  <br>
 
-  <div>
-    <%= form.label :patient_id, "Patient" %>
-    <%= form.collection_select :patient_id, Patient.all, :id, :name %>
-  </div>
-
-  <div>
-    <%= form.label :scheduled_at, "Appointment Time" %>
-    <%= form.datetime_local_field :scheduled_at %>
-  </div>
-
-  <div>
-    <%= form.label :status, "Status" %>
-    <%= form.select :status, Appointment.statuses.keys.map { |status| [status.humanize, status] } %>
-  </div>
-
-  <div>
-    <%= form.submit "Update Appointment" %>
-  </div>
-
-<% end %>
-
-<%= link_to "Back", appointment_path(@appointment) %>
-
+  <%= link_to "Back", appointment_path(@appointment) %>
+</div>

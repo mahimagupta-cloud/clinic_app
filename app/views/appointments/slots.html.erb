@@ -1,47 +1,120 @@
-<h1>Available Slots</h1>
+<div style="
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: Arial, sans-serif;
+">
 
-<h2><%= @doctor.name %></h2>
+  <div style="
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  ">
 
-<p>
-  Date: <%= @date.strftime("%d %B %Y") %>
-</p>
-
-<% if @slots.any? %>
-
-  <% @slots.each do |slot| %>
-
-    <div style="
-      margin-bottom: 15px;
-      padding: 15px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
+    <h1 style="
+      margin-top: 0;
+      color: #1f2937;
     ">
+      Available Slots
+    </h1>
 
-      <strong>
-        <%= slot.strftime("%I:%M %p") %>
-      </strong>
+    <h2 style="
+      color: #374151;
+      margin-bottom: 8px;
+    ">
+      <%= @doctor.name %>
+    </h2>
 
-      <%= form_with model: Appointment.new,
-          url: appointments_path,
-          method: :post,
-          local: true do |form| %>
+    <p style="
+      color: #6b7280;
+      margin-bottom: 25px;
+    ">
+      Date: <%= @date.strftime("%d %B %Y") %>
+    </p>
 
-        <%= form.hidden_field :doctor_id,
-            value: @doctor.id %>
 
-        <%= form.hidden_field :scheduled_at,
-            value: slot.strftime("%Y-%m-%dT%H:%M") %>
+    <% if @slots.any? %>
 
-        <%= form.submit "Book Appointment" %>
+      <% @slots.each do |slot| %>
+
+        <div style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 14px 16px;
+          margin-bottom: 10px;
+          border: 1px solid #e5e7eb;
+          border-radius: 8px;
+          background: #f9fafb;
+        ">
+
+          <strong style="
+            font-size: 16px;
+            color: #374151;
+          ">
+            <%= slot[:time].strftime("%I:%M %p") %>
+          </strong>
+
+
+          <% if slot[:booked] %>
+
+            <span style="
+              background: #fee2e2;
+              color: #b91c1c;
+              padding: 8px 14px;
+              border-radius: 6px;
+              font-size: 14px;
+              font-weight: 600;
+            ">
+              Already Booked
+            </span>
+
+          <% else %>
+
+            <%= form_with model: Appointment.new,
+                url: appointments_path,
+                method: :post,
+                local: true do |form| %>
+
+              <%= form.hidden_field :doctor_id,
+                  value: @doctor.id %>
+
+              <%= form.hidden_field :scheduled_at,
+                  value: slot[:time].strftime("%Y-%m-%dT%H:%M") %>
+
+              <%= form.submit "Book Appointment",
+                  style: "
+                    background: #2563eb;
+                    color: white;
+                    border: none;
+                    border-radius: 6px;
+                    padding: 8px 14px;
+                    font-size: 14px;
+                    font-weight: 600;
+                    cursor: pointer;
+                  " %>
+
+            <% end %>
+
+          <% end %>
+
+        </div>
 
       <% end %>
 
-    </div>
+    <% else %>
 
-  <% end %>
+      <p style="
+        color: #6b7280;
+        padding: 20px 0;
+      ">
+        No slots available for this date.
+      </p>
 
-<% else %>
+    <% end %>
 
-  <p>No slots available for this date.</p>
+  </div>
 
-<% end %>
+</div>

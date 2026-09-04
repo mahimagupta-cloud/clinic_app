@@ -29,26 +29,25 @@ class Appointment < ApplicationRecord
   end
 
   def doctor_must_be_available
-  return if doctor.blank? || scheduled_at.blank?
+    return if doctor.blank? || scheduled_at.blank?
 
-  availability = doctor.doctor_availabilities.find_by(
-    date: scheduled_at.to_date
-  )
+    availability = doctor.doctor_availabilities.find_by(
+      date: scheduled_at.to_date
+    )
 
-  unless availability
-    errors.add(:scheduled_at, "doctor is not available on this date")
-    return
+    unless availability
+      errors.add(:scheduled_at, "doctor is not available on this date")
+      return
+    end
+
+    appointment_time = scheduled_at.strftime("%H:%M:%S")
+    start_time = availability.start_time.strftime("%H:%M:%S")
+    end_time = availability.end_time.strftime("%H:%M:%S")
+
+    unless appointment_time >= start_time && appointment_time <= end_time
+      errors.add(:scheduled_at, "doctor is not available at this time")
+    end
   end
-
-  appointment_time = scheduled_at.strftime("%H:%M:%S")
-
-  start_time = availability.start_time.strftime("%H:%M:%S")
-  end_time = availability.end_time.strftime("%H:%M:%S")
-
-  unless appointment_time >= start_time && appointment_time <= end_time
-    errors.add(:scheduled_at, "doctor is not available at this time")
-  end
-end
 
   def cannot_cancel_past_appointment
     return unless cancelled?
