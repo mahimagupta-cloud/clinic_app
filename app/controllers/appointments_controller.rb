@@ -1,4 +1,5 @@
 class AppointmentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_appointment, only: [ :show, :edit, :update ]
 
   def index
@@ -56,27 +57,28 @@ class AppointmentsController < ApplicationController
     end
   end
 
-  def create
-    @appointment = Appointment.new(appointment_params)
+ def create
+  @appointment = Appointment.new(appointment_params)
+  @appointment.patient = current_user.patient
+  @appointment.status = :scheduled
 
-    @appointment.patient = current_user.patient
-    @appointment.status = :scheduled
+  begin
+    if @appointment.save
+      RazorpayPaymentService.create_order(@appointment)
 
-    begin
-      if @appointment.save
-        redirect_to @appointment, notice: "Appointment was successfully booked."
-      else
-        render :new, status: :unprocessable_entity
-      end
-    rescue ActiveRecord::RecordNotUnique
-      @appointment.errors.add(
-        :scheduled_at,
-        "has already been booked. Please choose another slot."
-      )
-
+      redirect_to appointment_payment_path(@appointment),
+            notice: "Appointment created. Proceed to payment."
+    else
       render :new, status: :unprocessable_entity
     end
+  rescue ActiveRecord::RecordNotUnique
+    @appointment.errors.add(
+      :scheduled_at,
+      "has already been booked. Please choose another slot."
+    )
+    render :new, status: :unprocessable_entity
   end
+ end
 
   def edit
   end

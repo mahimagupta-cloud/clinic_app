@@ -1,125 +1,317 @@
 <div style="
-  max-width: 800px;
-  margin: 80px auto;
-  text-align: center;
+  min-height:80vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:50px 24px;
+  font-family:Arial,sans-serif;
 ">
 
-  <h1>Welcome to Clinic App</h1>
-
-  <p style="font-size: 18px;">
-    Please select how you want to continue
-  </p>
-
-
   <div style="
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 40px;
-    flex-wrap: wrap;
+    width:100%;
+    max-width:1050px;
   ">
 
-
-    <!-- ========================= -->
-    <!-- Patient -->
-    <!-- ========================= -->
-
+    <!-- Hero Section -->
     <div style="
-      padding: 30px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      width: 280px;
+      text-align:center;
+      margin-bottom:45px;
     ">
 
-      <h2>👤 Patient</h2>
+      <div style="
+        width:72px;
+        height:72px;
+        margin:0 auto 20px;
+        border-radius:20px;
+        background:#e3f2fd;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:36px;
+      ">
+        🏥
+      </div>
 
-      <p>
-        Book appointments and manage your consultations.
+
+      <p style="
+        margin:0 0 10px;
+        color:#1976d2;
+        font-size:13px;
+        font-weight:700;
+        letter-spacing:1.2px;
+        text-transform:uppercase;
+      ">
+        Welcome to Clinic App
       </p>
 
 
-      <!-- Patient Login -->
-
-      <%= link_to "Patient Login",
-          patient_login_path(role: "patient"),
-          data: { turbo: false },
-          style: "
-            display: inline-block;
-            margin: 8px;
-            padding: 12px 20px;
-            background: #1769aa;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-          " %>
+      <h1 style="
+        margin:0 auto 15px;
+        max-width:800px;
+        font-size:42px;
+        line-height:1.2;
+        color:#1f2937;
+      ">
+        Better Care. Simpler Appointments.
+        <span style="color:#1976d2;">
+          Healthier Lives.
+        </span>
+      </h1>
 
 
-      <!-- Patient Sign Up -->
-
-      <%= link_to "Patient Sign Up",
-          new_user_registration_path(role: "patient"),
-          data: { turbo: false },
-          style: "
-            display: inline-block;
-            margin: 8px;
-            padding: 12px 20px;
-            background: #555;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-          " %>
+      <p style="
+        max-width:680px;
+        margin:0 auto;
+        color:#6b7280;
+        font-size:17px;
+        line-height:1.7;
+      ">
+        Connect with trusted doctors, book appointments,
+        and manage your healthcare journey — all in one place.
+      </p>
 
     </div>
 
 
-    <!-- ========================= -->
-    <!-- Doctor -->
-    <!-- ========================= -->
-
+    <!-- Role Selection -->
     <div style="
-      padding: 30px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      width: 280px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:25px;
     ">
 
-      <h2>👨‍⚕️ Doctor</h2>
 
-      <p>
-        Manage appointments and consultations.
+      <!-- PATIENT CARD -->
+      <div style="
+        background:white;
+        border:1px solid #e5e7eb;
+        border-radius:20px;
+        padding:32px;
+        box-shadow:0 5px 20px rgba(0,0,0,0.06);
+      ">
+
+        <div style="
+          display:flex;
+          align-items:center;
+          gap:15px;
+          margin-bottom:22px;
+        ">
+
+          <div style="
+            width:58px;
+            height:58px;
+            border-radius:16px;
+            background:#e3f2fd;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:28px;
+          ">
+            👤
+          </div>
+
+
+          <div>
+
+            <h2 style="
+              margin:0 0 4px;
+              font-size:22px;
+              color:#1f2937;
+            ">
+              Patient
+            </h2>
+
+            <p style="
+              margin:0;
+              color:#6b7280;
+              font-size:13px;
+            ">
+              Find care and manage appointments
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <p style="
+          margin:0 0 25px;
+          color:#6b7280;
+          font-size:14px;
+          line-height:1.6;
+        ">
+          Search for doctors, choose a convenient time,
+          book appointments, and keep track of your consultations.
+        </p>
+
+
+        <div style="
+          display:flex;
+          gap:10px;
+        ">
+
+          <%= link_to "Patient Login",
+              patient_login_path(role: "patient"),
+              data: { turbo: false },
+              style: "
+                flex:1;
+                text-align:center;
+                padding:12px 10px;
+                background:#1976d2;
+                color:white;
+                text-decoration:none;
+                border-radius:9px;
+                font-size:14px;
+                font-weight:700;
+                box-sizing:border-box;
+              " %>
+
+
+          <%= link_to "Sign Up",
+              new_user_registration_path(role: "patient"),
+              data: { turbo: false },
+              style: "
+                flex:1;
+                text-align:center;
+                padding:12px 10px;
+                background:white;
+                color:#1976d2;
+                border:1px solid #1976d2;
+                text-decoration:none;
+                border-radius:9px;
+                font-size:14px;
+                font-weight:700;
+                box-sizing:border-box;
+              " %>
+
+        </div>
+
+      </div>
+
+
+      <!-- DOCTOR CARD -->
+      <div style="
+        background:white;
+        border:1px solid #e5e7eb;
+        border-radius:20px;
+        padding:32px;
+        box-shadow:0 5px 20px rgba(0,0,0,0.06);
+      ">
+
+        <div style="
+          display:flex;
+          align-items:center;
+          gap:15px;
+          margin-bottom:22px;
+        ">
+
+          <div style="
+            width:58px;
+            height:58px;
+            border-radius:16px;
+            background:#e8f5e9;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:28px;
+          ">
+            👨‍⚕️
+          </div>
+
+
+          <div>
+
+            <h2 style="
+              margin:0 0 4px;
+              font-size:22px;
+              color:#1f2937;
+            ">
+              Doctor
+            </h2>
+
+            <p style="
+              margin:0;
+              color:#6b7280;
+              font-size:13px;
+            ">
+              Manage patients and consultations
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <p style="
+          margin:0 0 25px;
+          color:#6b7280;
+          font-size:14px;
+          line-height:1.6;
+        ">
+          Manage your availability, view upcoming appointments,
+          and keep track of your patient consultations.
+        </p>
+
+
+        <div style="
+          display:flex;
+          gap:10px;
+        ">
+
+          <%= link_to "Doctor Login",
+              doctor_login_path(role: "doctor"),
+              data: { turbo: false },
+              style: "
+                flex:1;
+                text-align:center;
+                padding:12px 10px;
+                background:#1976d2;
+                color:white;
+                text-decoration:none;
+                border-radius:9px;
+                font-size:14px;
+                font-weight:700;
+                box-sizing:border-box;
+              " %>
+
+
+          <%= link_to "Sign Up",
+              new_user_registration_path(role: "doctor"),
+              data: { turbo: false },
+              style: "
+                flex:1;
+                text-align:center;
+                padding:12px 10px;
+                background:white;
+                color:#1976d2;
+                border:1px solid #1976d2;
+                text-decoration:none;
+                border-radius:9px;
+                font-size:14px;
+                font-weight:700;
+                box-sizing:border-box;
+              " %>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Bottom Trust Line -->
+    <div style="
+      text-align:center;
+      margin-top:32px;
+    ">
+
+      <p style="
+        margin:0;
+        color:#9ca3af;
+        font-size:13px;
+      ">
+        Secure • Simple • Convenient Healthcare
       </p>
-
-
-      <!-- Doctor Login -->
-
-      <%= link_to "Doctor Login",
-          doctor_login_path(role: "doctor"),
-          data: { turbo: false },
-          style: "
-            display: inline-block;
-            margin: 8px;
-            padding: 12px 20px;
-            background: #1769aa;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-          " %>
-
-
-      <!-- Doctor Sign Up -->
-
-      <%= link_to "Doctor Sign Up",
-          new_user_registration_path(role: "doctor"),
-          data: { turbo: false },
-          style: "
-            display: inline-block;
-            margin: 8px;
-            padding: 12px 20px;
-            background: #555;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-          " %>
 
     </div>
 

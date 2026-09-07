@@ -1,26 +1,247 @@
-<h2>Log in</h2>
+<%
+  doctor_login = params[:role] == "doctor" || session[:login_role] == "doctor"
+%>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <p><%= f.label :email %></p>
-    <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
-  </div>
+<div style="
+  min-height:80vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:50px 24px;
+  font-family:Arial,sans-serif;
+">
 
-  <div class="field">
-    <p><%= f.label :password %></p>
-    <p><%= f.password_field :password, autocomplete: "current-password" %></p>
-  </div>
+  <div style="
+    width:100%;
+    max-width:440px;
+  ">
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <p><%= f.check_box :remember_me %></p>
-      <p><%= f.label :remember_me %></p>
+    <!-- Header -->
+    <div style="
+      text-align:center;
+      margin-bottom:28px;
+    ">
+
+      <div style="
+        width:72px;
+        height:72px;
+        margin:0 auto 18px;
+        border-radius:20px;
+        background:<%= doctor_login ? "#e8f5e9" : "#e3f2fd" %>;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:34px;
+      ">
+        <%= doctor_login ? "👨‍⚕️" : "👤" %>
+      </div>
+
+
+      <p style="
+        margin:0 0 8px;
+        color:#1976d2;
+        font-size:13px;
+        font-weight:700;
+        letter-spacing:1px;
+        text-transform:uppercase;
+      ">
+        Clinic App
+      </p>
+
+
+      <h1 style="
+        margin:0 0 9px;
+        font-size:30px;
+        color:#1f2937;
+      ">
+        <%= doctor_login ? "Doctor Login" : "Patient Login" %>
+      </h1>
+
+
+      <p style="
+        margin:0;
+        color:#6b7280;
+        font-size:14px;
+        line-height:1.5;
+      ">
+        <% if doctor_login %>
+          Sign in to manage appointments and patient consultations.
+        <% else %>
+          Sign in to book appointments and manage your healthcare.
+        <% end %>
+      </p>
+
     </div>
-  <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
+
+    <!-- Login Card -->
+    <div style="
+      background:white;
+      border:1px solid #e5e7eb;
+      border-radius:18px;
+      padding:32px;
+      box-shadow:0 6px 22px rgba(0,0,0,0.06);
+    ">
+
+      <%= form_for(
+            resource,
+            as: resource_name,
+            url: session_path(resource_name)
+          ) do |f| %>
+
+
+        <!-- Email -->
+        <div style="
+          margin-bottom:20px;
+        ">
+
+          <%= f.label :email,
+              "Email Address",
+              style: "
+                display:block;
+                margin-bottom:8px;
+                color:#374151;
+                font-size:14px;
+                font-weight:600;
+              " %>
+
+          <%= f.email_field :email,
+              autofocus: true,
+              autocomplete: "email",
+              placeholder: "Enter your email",
+              style: "
+                width:100%;
+                padding:13px 14px;
+                border:1px solid #d1d5db;
+                border-radius:9px;
+                box-sizing:border-box;
+                font-size:14px;
+                outline:none;
+              " %>
+
+        </div>
+
+
+        <!-- Password -->
+        <div style="
+          margin-bottom:22px;
+        ">
+
+          <%= f.label :password,
+              "Password",
+              style: "
+                display:block;
+                margin-bottom:8px;
+                color:#374151;
+                font-size:14px;
+                font-weight:600;
+              " %>
+
+          <%= f.password_field :password,
+              autocomplete: "current-password",
+              placeholder: "Enter your password",
+              style: "
+                width:100%;
+                padding:13px 14px;
+                border:1px solid #d1d5db;
+                border-radius:9px;
+                box-sizing:border-box;
+                font-size:14px;
+                outline:none;
+              " %>
+
+        </div>
+
+
+        <!-- Login -->
+        <div>
+
+          <%= f.submit(
+                doctor_login ? "Login as Doctor" : "Login as Patient",
+                style: "
+                  width:100%;
+                  padding:13px;
+                  background:#1976d2;
+                  color:white;
+                  border:none;
+                  border-radius:9px;
+                  font-size:15px;
+                  font-weight:700;
+                  cursor:pointer;
+                "
+              ) %>
+
+        </div>
+
+
+      <% end %>
+
+
+      <!-- Divider -->
+      <div style="
+        display:flex;
+        align-items:center;
+        gap:12px;
+        margin:24px 0;
+      ">
+
+        <div style="
+          flex:1;
+          height:1px;
+          background:#e5e7eb;
+        "></div>
+
+        <span style="
+          color:#9ca3af;
+          font-size:12px;
+        ">
+          OR
+        </span>
+
+        <div style="
+          flex:1;
+          height:1px;
+          background:#e5e7eb;
+        "></div>
+
+      </div>
+
+
+      <!-- Back -->
+      <div style="
+        text-align:center;
+      ">
+
+        <%= link_to "← Back to Home",
+            root_path,
+            style: "
+              color:#1976d2;
+              text-decoration:none;
+              font-size:14px;
+              font-weight:600;
+            " %>
+
+      </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <div style="
+      text-align:center;
+      margin-top:20px;
+    ">
+
+      <p style="
+        margin:0;
+        color:#9ca3af;
+        font-size:12px;
+      ">
+        Secure • Simple • Convenient Healthcare
+      </p>
+
+    </div>
+
   </div>
-<% end %>
 
-<%= render "devise/shared/links" %>
+</div>

@@ -2,6 +2,11 @@
 
 <h2><%= @doctor.name %></h2>
 
+<p>
+  <strong>📍 Location:</strong>
+  <%= @doctor.location.presence || "Not available" %>
+</p>
+
 <%= form_with url: slots_appointments_path, method: :get do |form| %>
 
   <%= hidden_field_tag :doctor_id, @doctor.id %>

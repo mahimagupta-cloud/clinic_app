@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   root "role#index"
 
   get "role",
@@ -54,6 +55,14 @@ Rails.application.routes.draw do
   end
 
   # Appointments
+  get "appointments/:appointment_id/payment",
+    to: "payments#show",
+    as: :appointment_payment
+
+  post "payments/verify",
+     to: "payments#verify",
+     as: :verify_payment
+
   resources :appointments do
     get "slots",
         on: :collection

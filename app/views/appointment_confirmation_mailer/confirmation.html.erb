@@ -1,0 +1,36 @@
+<h1>Appointment Confirmed</h1>
+
+<p>Hello <%= @patient.name %>,</p>
+
+<p>Your appointment has been successfully confirmed.</p>
+
+<h2>Appointment Details</h2>
+
+<p>
+  <strong>Doctor:</strong>
+  <%= @doctor.name %>
+</p>
+
+<p>
+  <strong>Specialization:</strong>
+  <%= @doctor.specialization %>
+</p>
+
+<p>
+  <strong>Date & Time:</strong>
+  <%= @appointment.scheduled_at.strftime("%d %B %Y, %I:%M %p") %>
+</p>
+
+<p>
+  <strong>Consultation Fee:</strong>
+  ₹<%= @payment.amount %>
+</p>
+
+<p>
+  <strong>Payment Status:</strong>
+  <%= @payment.status.humanize %>
+</p>
+
+<p>
+  Thank you for choosing Clinic App.
+</p>

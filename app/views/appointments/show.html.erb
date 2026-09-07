@@ -1,47 +1,463 @@
+<div style="
+  max-width:900px;
+  margin:0 auto;
+  padding:40px 24px;
+  font-family:Arial,sans-serif;
+">
 
-<h1>Appointment Details</h1>
+  <!-- Confirmation Header -->
+  <div style="
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    padding:32px;
+    text-align:center;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom:24px;
+  ">
 
-<p>
-  <strong>Doctor:</strong>
-  <%= @appointment.doctor.name %>
-</p>
+    <div style="
+      width:64px;
+      height:64px;
+      margin:0 auto 15px;
+      border-radius:50%;
+      background:#dcfce7;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:32px;
+    ">
+      ✓
+    </div>
 
-<p>
-  <strong>Patient:</strong>
-  <%= @appointment.patient.name %>
-</p>
+    <h1 style="
+      margin:0 0 8px;
+      color:#1f2937;
+      font-size:30px;
+    ">
+      Appointment Details
+    </h1>
 
-<p>
-  <strong>Scheduled At:</strong>
-  <%= @appointment.scheduled_at %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @appointment.status %>
-</p>
-
-<hr>
-
-<% if @appointment.completed? %>
-  <h2>Consultation</h2>
-
-  <% if @appointment.consultation.present? %>
-    <p>
-      Consultation already exists.
+    <p style="
+      margin:0;
+      color:#6b7280;
+      font-size:15px;
+    ">
+      Here are the details of your appointment.
     </p>
 
-    <%= link_to "View Consultation",
-                appointment_consultation_path(
-                  @appointment,
-                  @appointment.consultation
-                ) %>
-  <% else %>
-    <%= link_to "Create Consultation",
-                new_appointment_consultation_path(@appointment) %>
+  </div>
+
+
+  <!-- Appointment Information -->
+  <div style="
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    padding:28px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom:24px;
+  ">
+
+    <div style="
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+      flex-wrap:wrap;
+      margin-bottom:25px;
+    ">
+
+      <h2 style="
+        margin:0;
+        color:#1f2937;
+        font-size:21px;
+      ">
+        Appointment Information
+      </h2>
+
+      <span style="
+        display:inline-block;
+        padding:7px 12px;
+        background:#eff6ff;
+        color:#1976d2;
+        border-radius:7px;
+        font-size:12px;
+        font-weight:700;
+      ">
+        <%= @appointment.status.humanize.upcase %>
+      </span>
+
+    </div>
+
+
+    <!-- Doctor -->
+    <div style="
+      display:flex;
+      align-items:center;
+      gap:15px;
+      padding-bottom:22px;
+      border-bottom:1px solid #f0f0f0;
+    ">
+
+      <div style="
+        width:62px;
+        height:62px;
+        border-radius:50%;
+        background:#e8f3ff;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:29px;
+        flex-shrink:0;
+      ">
+        👨‍⚕️
+      </div>
+
+      <div>
+
+        <p style="
+          margin:0 0 5px;
+          color:#1976d2;
+          font-size:12px;
+          font-weight:700;
+        ">
+          DOCTOR
+        </p>
+
+        <h3 style="
+          margin:0;
+          color:#1f2937;
+          font-size:20px;
+        ">
+          Dr. <%= @appointment.doctor.name %>
+        </h3>
+
+        <p style="
+          margin:5px 0 0;
+          color:#6b7280;
+          font-size:14px;
+        ">
+          <%= @appointment.doctor.specialization %>
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- Details Grid -->
+    <div style="
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:22px;
+      padding-top:24px;
+    ">
+
+
+      <!-- Patient -->
+      <div>
+
+        <p style="
+          margin:0 0 6px;
+          color:#6b7280;
+          font-size:12px;
+          font-weight:600;
+        ">
+          PATIENT
+        </p>
+
+        <p style="
+          margin:0;
+          color:#1f2937;
+          font-size:15px;
+          font-weight:700;
+        ">
+          <%= @appointment.patient.name %>
+        </p>
+
+      </div>
+
+
+      <!-- Date -->
+      <div>
+
+        <p style="
+          margin:0 0 6px;
+          color:#6b7280;
+          font-size:12px;
+          font-weight:600;
+        ">
+          DATE
+        </p>
+
+        <p style="
+          margin:0;
+          color:#1f2937;
+          font-size:15px;
+          font-weight:700;
+        ">
+          📅 <%= @appointment.scheduled_at.strftime("%d %B %Y") %>
+        </p>
+
+      </div>
+
+
+      <!-- Time -->
+      <div>
+
+        <p style="
+          margin:0 0 6px;
+          color:#6b7280;
+          font-size:12px;
+          font-weight:600;
+        ">
+          TIME
+        </p>
+
+        <p style="
+          margin:0;
+          color:#1f2937;
+          font-size:15px;
+          font-weight:700;
+        ">
+          🕐 <%= @appointment.scheduled_at.strftime("%I:%M %p") %>
+        </p>
+
+      </div>
+
+
+      <!-- Location -->
+      <div>
+
+        <p style="
+          margin:0 0 6px;
+          color:#6b7280;
+          font-size:12px;
+          font-weight:600;
+        ">
+          LOCATION
+        </p>
+
+        <p style="
+          margin:0;
+          color:#1f2937;
+          font-size:15px;
+          font-weight:700;
+        ">
+          📍 <%= @appointment.doctor.location.presence || "Not available" %>
+        </p>
+
+      </div>
+
+
+      <!-- Consultation Fee -->
+      <div>
+
+        <p style="
+          margin:0 0 6px;
+          color:#6b7280;
+          font-size:12px;
+          font-weight:600;
+        ">
+          CONSULTATION FEE
+        </p>
+
+        <p style="
+          margin:0;
+          color:#1f2937;
+          font-size:15px;
+          font-weight:700;
+        ">
+          ₹<%= @appointment.doctor.consultation_fee %>
+        </p>
+
+      </div>
+
+
+      <!-- Payment -->
+      <div>
+
+        <p style="
+          margin:0 0 6px;
+          color:#6b7280;
+          font-size:12px;
+          font-weight:600;
+        ">
+          PAYMENT
+        </p>
+
+        <% if @appointment.payment&.completed? %>
+
+          <span style="
+            display:inline-block;
+            padding:6px 10px;
+            background:#dcfce7;
+            color:#166534;
+            border-radius:6px;
+            font-size:12px;
+            font-weight:700;
+          ">
+            ✓ PAID
+          </span>
+
+        <% elsif @appointment.payment&.pending? %>
+
+          <span style="
+            display:inline-block;
+            padding:6px 10px;
+            background:#fff7ed;
+            color:#c2410c;
+            border-radius:6px;
+            font-size:12px;
+            font-weight:700;
+          ">
+            PAYMENT PENDING
+          </span>
+
+        <% else %>
+
+          <span style="
+            display:inline-block;
+            padding:6px 10px;
+            background:#fee2e2;
+            color:#b91c1c;
+            border-radius:6px;
+            font-size:12px;
+            font-weight:700;
+          ">
+            PAYMENT FAILED
+          </span>
+
+        <% end %>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Consultation -->
+  <% if @appointment.completed? %>
+
+    <div style="
+      background:white;
+      border:1px solid #e5e7eb;
+      border-radius:16px;
+      padding:28px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom:24px;
+    ">
+
+      <h2 style="
+        margin:0 0 8px;
+        color:#1f2937;
+        font-size:21px;
+      ">
+        Consultation
+      </h2>
+
+      <p style="
+        margin:0 0 20px;
+        color:#6b7280;
+        font-size:14px;
+      ">
+        View or manage the consultation associated with this appointment.
+      </p>
+
+
+      <% if @appointment.consultation.present? %>
+
+        <div style="
+          padding:16px;
+          background:#f8fafc;
+          border-radius:9px;
+          margin-bottom:18px;
+        ">
+
+          <p style="
+            margin:0;
+            color:#374151;
+            font-size:14px;
+          ">
+            Consultation already exists for this appointment.
+          </p>
+
+        </div>
+
+        <%= link_to "View Consultation",
+            appointment_consultation_path(
+              @appointment,
+              @appointment.consultation
+            ),
+            style: "
+              display:inline-block;
+              padding:11px 18px;
+              background:#1976d2;
+              color:white;
+              text-decoration:none;
+              border-radius:8px;
+              font-size:14px;
+              font-weight:600;
+            " %>
+
+      <% else %>
+
+        <%= link_to "Create Consultation",
+            new_appointment_consultation_path(@appointment),
+            style: "
+              display:inline-block;
+              padding:11px 18px;
+              background:#1976d2;
+              color:white;
+              text-decoration:none;
+              border-radius:8px;
+              font-size:14px;
+              font-weight:600;
+            " %>
+
+      <% end %>
+
+    </div>
+
   <% end %>
-<% end %>
 
-<br><br>
 
-<%= link_to "Back", patient_dashboard_path %>
+  <!-- Navigation -->
+  <div style="
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+  ">
+
+    <%= link_to "← Back to Dashboard",
+        patient_dashboard_path,
+        style: "
+          display:inline-block;
+          padding:11px 18px;
+          background:#1976d2;
+          color:white;
+          text-decoration:none;
+          border-radius:8px;
+          font-size:14px;
+          font-weight:600;
+        " %>
+
+    <%= link_to "Find Another Doctor",
+        doctors_path,
+        style: "
+          display:inline-block;
+          padding:11px 18px;
+          background:white;
+          color:#1976d2;
+          border:1px solid #1976d2;
+          text-decoration:none;
+          border-radius:8px;
+          font-size:14px;
+          font-weight:600;
+        " %>
+
+  </div>
+
+</div>

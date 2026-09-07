@@ -20,6 +20,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           specialization: params[:doctor][:specialization],
           experience: params[:doctor][:experience],
           bio: params[:doctor][:bio],
+          location: params[:doctor][:location],
           consultation_fee: params[:doctor][:consultation_fee]
         )
       else

@@ -25,31 +25,30 @@ class DoctorController < ApplicationController
   end
 
   # Doctor List
-  def index
-    @doctors = Doctor.includes(:clinic)
+ def index
+  @doctors = Doctor.includes(:clinic)
 
-    if params[:name].present?
-      @doctors = @doctors.where(
-        "doctors.name ILIKE ?",
-        "%#{params[:name]}%"
-      )
-    end
-
-    if params[:specialization].present?
-      @doctors = @doctors.where(
-        "doctors.specialization ILIKE ?",
-        "%#{params[:specialization]}%"
-      )
-    end
-
-    if params[:location].present?
-      @doctors = @doctors.joins(:clinic).where(
-        "clinics.city ILIKE ? OR clinics.address ILIKE ?",
-        "%#{params[:location]}%",
-        "%#{params[:location]}%"
-      )
-    end
+  if params[:name].present?
+    @doctors = @doctors.where(
+      "doctors.name ILIKE ?",
+      "%#{params[:name]}%"
+    )
   end
+
+  if params[:specialization].present?
+    @doctors = @doctors.where(
+      "doctors.specialization ILIKE ?",
+      "%#{params[:specialization]}%"
+    )
+  end
+
+  if params[:location].present?
+    @doctors = @doctors.where(
+      "doctors.location ILIKE ?",
+      "%#{params[:location]}%"
+    )
+  end
+ end
   def show
   end
 

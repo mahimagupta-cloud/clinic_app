@@ -1,78 +1,277 @@
 <div style="
-  max-width: 700px;
-  margin: 40px auto;
-  padding: 0 20px;
-  font-family: Arial, sans-serif;
+  max-width:900px;
+  margin:0 auto;
+  padding:40px 24px;
+  font-family:Arial,sans-serif;
 ">
 
+  <!-- Back -->
+  <div style="margin-bottom:25px;">
+
+    <%= link_to "← Back to Doctor",
+        doctor_path(@doctor),
+        style: "
+          color:#1976d2;
+          text-decoration:none;
+          font-size:14px;
+          font-weight:600;
+        " %>
+
+  </div>
+
+
+  <!-- Header -->
   <div style="
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 30px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    padding:28px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom:25px;
   ">
 
-    <h1 style="
-      margin-top: 0;
-      color: #1f2937;
+    <p style="
+      margin:0 0 7px;
+      color:#1976d2;
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:0.5px;
     ">
-      Available Slots
+      APPOINTMENT SLOTS
+    </p>
+
+    <h1 style="
+      margin:0 0 8px;
+      color:#1f2937;
+      font-size:28px;
+    ">
+      Dr. <%= @doctor.name %>
     </h1>
 
-    <h2 style="
-      color: #374151;
-      margin-bottom: 8px;
-    ">
-      <%= @doctor.name %>
-    </h2>
-
     <p style="
-      color: #6b7280;
-      margin-bottom: 25px;
+      margin:0 0 18px;
+      color:#1976d2;
+      font-weight:600;
     ">
-      Date: <%= @date.strftime("%d %B %Y") %>
+      <%= @doctor.specialization %>
     </p>
+
+
+    <div style="
+      display:flex;
+      gap:20px;
+      flex-wrap:wrap;
+      padding-top:18px;
+      border-top:1px solid #f0f0f0;
+    ">
+
+      <div>
+        <span style="
+          color:#6b7280;
+          font-size:12px;
+          font-weight:600;
+        ">
+          DATE
+        </span>
+
+        <div style="
+          margin-top:4px;
+          color:#1f2937;
+          font-weight:700;
+        ">
+          📅 <%= @date.strftime("%d %B %Y") %>
+        </div>
+      </div>
+
+
+      <div>
+        <span style="
+          color:#6b7280;
+          font-size:12px;
+          font-weight:600;
+        ">
+          LOCATION
+        </span>
+
+        <div style="
+          margin-top:4px;
+          color:#1f2937;
+          font-weight:700;
+        ">
+          📍 <%= @doctor.location.presence || "Not available" %>
+        </div>
+      </div>
+
+
+      <div>
+        <span style="
+          color:#6b7280;
+          font-size:12px;
+          font-weight:600;
+        ">
+          CONSULTATION FEE
+        </span>
+
+        <div style="
+          margin-top:4px;
+          color:#1f2937;
+          font-weight:700;
+        ">
+          ₹<%= @doctor.consultation_fee %>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Slot Selection -->
+  <div style="
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    padding:28px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+  ">
+
+    <div style="
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:15px;
+      flex-wrap:wrap;
+      margin-bottom:25px;
+    ">
+
+      <div>
+
+        <h2 style="
+          margin:0 0 6px;
+          color:#1f2937;
+          font-size:22px;
+        ">
+          Choose a Time
+        </h2>
+
+        <p style="
+          margin:0;
+          color:#6b7280;
+          font-size:14px;
+        ">
+          Select an available 30-minute appointment slot.
+        </p>
+
+      </div>
+
+
+      <!-- Legend -->
+      <div style="
+        display:flex;
+        gap:12px;
+        align-items:center;
+        font-size:12px;
+      ">
+
+        <span style="
+          display:flex;
+          align-items:center;
+          gap:5px;
+          color:#374151;
+        ">
+          <span style="
+            width:9px;
+            height:9px;
+            border-radius:50%;
+            background:#16a34a;
+            display:inline-block;
+          "></span>
+          Available
+        </span>
+
+        <span style="
+          display:flex;
+          align-items:center;
+          gap:5px;
+          color:#374151;
+        ">
+          <span style="
+            width:9px;
+            height:9px;
+            border-radius:50%;
+            background:#dc2626;
+            display:inline-block;
+          "></span>
+          Booked
+        </span>
+
+      </div>
+
+    </div>
 
 
     <% if @slots.any? %>
 
-      <% @slots.each do |slot| %>
+      <div style="
+        display:grid;
+        grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+        gap:12px;
+      ">
 
-        <div style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 14px 16px;
-          margin-bottom: 10px;
-          border: 1px solid #e5e7eb;
-          border-radius: 8px;
-          background: #f9fafb;
-        ">
-
-          <strong style="
-            font-size: 16px;
-            color: #374151;
-          ">
-            <%= slot[:time].strftime("%I:%M %p") %>
-          </strong>
-
+        <% @slots.each do |slot| %>
 
           <% if slot[:booked] %>
 
-            <span style="
-              background: #fee2e2;
-              color: #b91c1c;
-              padding: 8px 14px;
-              border-radius: 6px;
-              font-size: 14px;
-              font-weight: 600;
+            <!-- Booked Slot -->
+            <div style="
+              display:flex;
+              justify-content:space-between;
+              align-items:center;
+              padding:15px 17px;
+              border:1px solid #fecaca;
+              border-radius:10px;
+              background:#fef2f2;
+              opacity:0.8;
             ">
-              Already Booked
-            </span>
+
+              <div>
+
+                <p style="
+                  margin:0 0 3px;
+                  color:#374151;
+                  font-weight:700;
+                ">
+                  <%= slot[:time].strftime("%I:%M %p") %>
+                </p>
+
+                <p style="
+                  margin:0;
+                  color:#9ca3af;
+                  font-size:12px;
+                ">
+                  30 minute slot
+                </p>
+
+              </div>
+
+
+              <span style="
+                padding:6px 9px;
+                background:#fee2e2;
+                color:#b91c1c;
+                border-radius:6px;
+                font-size:11px;
+                font-weight:700;
+              ">
+                BOOKED
+              </span>
+
+            </div>
+
 
           <% else %>
 
+            <!-- Available Slot -->
             <%= form_with model: Appointment.new,
                 url: appointments_path,
                 method: :post,
@@ -84,34 +283,138 @@
               <%= form.hidden_field :scheduled_at,
                   value: slot[:time].strftime("%Y-%m-%dT%H:%M") %>
 
-              <%= form.submit "Book Appointment",
-                  style: "
-                    background: #2563eb;
-                    color: white;
-                    border: none;
-                    border-radius: 6px;
-                    padding: 8px 14px;
-                    font-size: 14px;
-                    font-weight: 600;
-                    cursor: pointer;
-                  " %>
+
+              <button type="submit" style="
+                width:100%;
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                padding:15px 17px;
+                border:1px solid #bbf7d0;
+                border-radius:10px;
+                background:#f0fdf4;
+                cursor:pointer;
+                text-align:left;
+              ">
+
+                <span>
+
+                  <span style="
+                    display:block;
+                    margin-bottom:3px;
+                    color:#166534;
+                    font-size:16px;
+                    font-weight:700;
+                  ">
+                    <%= slot[:time].strftime("%I:%M %p") %>
+                  </span>
+
+                  <span style="
+                    display:block;
+                    color:#6b7280;
+                    font-size:12px;
+                  ">
+                    30 minute consultation
+                  </span>
+
+                </span>
+
+
+                <span style="
+                  padding:7px 10px;
+                  background:#1976d2;
+                  color:white;
+                  border-radius:6px;
+                  font-size:11px;
+                  font-weight:700;
+                ">
+                  SELECT
+                </span>
+
+              </button>
 
             <% end %>
 
           <% end %>
 
-        </div>
+        <% end %>
 
-      <% end %>
+      </div>
+
+
+      <!-- Payment Notice -->
+      <div style="
+        margin-top:25px;
+        padding:15px;
+        background:#f8fafc;
+        border-radius:10px;
+        border:1px solid #eef2f7;
+      ">
+
+        <p style="
+          margin:0;
+          color:#6b7280;
+          font-size:13px;
+          line-height:1.5;
+        ">
+          🔒 After selecting a slot, you'll review your appointment
+          and proceed to secure payment.
+        </p>
+
+      </div>
+
 
     <% else %>
 
-      <p style="
-        color: #6b7280;
-        padding: 20px 0;
+      <!-- No Slots -->
+      <div style="
+        text-align:center;
+        padding:55px 20px;
+        border:1px dashed #d1d5db;
+        border-radius:12px;
       ">
-        No slots available for this date.
-      </p>
+
+        <div style="
+          font-size:45px;
+          margin-bottom:12px;
+        ">
+          🕐
+        </div>
+
+        <h3 style="
+          margin:0 0 8px;
+          color:#1f2937;
+        ">
+          No slots available
+        </h3>
+
+        <p style="
+          margin:0;
+          color:#6b7280;
+          font-size:14px;
+        ">
+          This doctor isn't available for appointments on
+          <%= @date.strftime("%d %B %Y") %>.
+        </p>
+
+        <div style="margin-top:20px;">
+
+          <%= link_to "Choose Another Date",
+              doctor_path(@doctor),
+              style: "
+                display:inline-block;
+                padding:11px 18px;
+                background:#1976d2;
+                color:white;
+                text-decoration:none;
+                border-radius:8px;
+                font-size:14px;
+                font-weight:600;
+              " %>
+
+        </div>
+
+      </div>
 
     <% end %>
 

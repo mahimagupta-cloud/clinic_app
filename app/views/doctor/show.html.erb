@@ -1,152 +1,478 @@
-<div style="max-width: 900px; margin: 40px auto; font-family: Arial, sans-serif;">
+<div style="
+  max-width:1100px;
+  margin:0 auto;
+  padding:40px 24px;
+  font-family:Arial,sans-serif;
+">
 
-  <!-- Doctor Header -->
+  <!-- Back -->
+  <div style="margin-bottom:25px;">
 
-  <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
-
-    <h1 style="margin-bottom: 5px;">
-      Dr. <%= @doctor.name %>
-    </h1>
-
-    <p style="font-size: 18px; color: #1769aa;">
-      <%= @doctor.specialization %>
-    </p>
-
-    <p>
-      <strong>Experience:</strong>
-      <%= @doctor.experience %> years
-    </p>
-
-    <p>
-      <strong>Consultation Fee:</strong>
-      ₹<%= @doctor.consultation_fee %>
-    </p>
-
-    <% if @doctor.clinic.present? %>
-
-      <p>
-        <strong>Clinic:</strong>
-        <%= @doctor.clinic.name %>
-      </p>
-
-      <p>
-        <strong>Location:</strong>
-        <%= @doctor.clinic.city %>
-      </p>
-
-    <% end %>
+    <%= link_to "← Back to Doctors",
+        doctors_path,
+        style: "
+          color:#1976d2;
+          text-decoration:none;
+          font-size:14px;
+          font-weight:600;
+        " %>
 
   </div>
 
 
-  <!-- About Doctor -->
+  <!-- Doctor Profile Header -->
+  <div style="
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:18px;
+    padding:32px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom:25px;
+  ">
 
-  <div style="background: white; margin-top: 25px; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
+    <div style="
+      display:flex;
+      align-items:center;
+      gap:24px;
+      flex-wrap:wrap;
+    ">
 
-    <h2>About Dr. <%= @doctor.name %></h2>
+      <!-- Avatar -->
+      <div style="
+        width:95px;
+        height:95px;
+        border-radius:50%;
+        background:#e8f3ff;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:45px;
+        flex-shrink:0;
+      ">
+        👨‍⚕️
+      </div>
 
-    <p>
-      <%= @doctor.bio.presence || "Doctor information is not available yet." %>
-    </p>
+
+      <!-- Basic Information -->
+      <div style="flex:1; min-width:250px;">
+
+        <p style="
+          margin:0 0 7px;
+          color:#1976d2;
+          font-size:13px;
+          font-weight:700;
+          letter-spacing:0.5px;
+        ">
+          MEDICAL SPECIALIST
+        </p>
+
+        <h1 style="
+          margin:0 0 8px;
+          font-size:32px;
+          color:#1f2937;
+        ">
+          Dr. <%= @doctor.name %>
+        </h1>
+
+        <p style="
+          margin:0;
+          color:#1976d2;
+          font-size:17px;
+          font-weight:600;
+        ">
+          <%= @doctor.specialization %>
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- Doctor Stats -->
+    <div style="
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:15px;
+      margin-top:30px;
+      padding-top:25px;
+      border-top:1px solid #f0f0f0;
+    ">
+
+      <!-- Experience -->
+      <div style="
+        padding:17px;
+        background:#f8fafc;
+        border-radius:10px;
+      ">
+
+        <p style="
+          margin:0 0 5px;
+          color:#6b7280;
+          font-size:12px;
+          font-weight:600;
+        ">
+          EXPERIENCE
+        </p>
+
+        <p style="
+          margin:0;
+          color:#1f2937;
+          font-size:18px;
+          font-weight:700;
+        ">
+          <%= @doctor.experience.presence || 0 %> years
+        </p>
+
+      </div>
+
+
+      <!-- Fee -->
+      <div style="
+        padding:17px;
+        background:#f8fafc;
+        border-radius:10px;
+      ">
+
+        <p style="
+          margin:0 0 5px;
+          color:#6b7280;
+          font-size:12px;
+          font-weight:600;
+        ">
+          CONSULTATION FEE
+        </p>
+
+        <p style="
+          margin:0;
+          color:#1f2937;
+          font-size:18px;
+          font-weight:700;
+        ">
+          ₹<%= @doctor.consultation_fee %>
+        </p>
+
+      </div>
+
+
+      <!-- Location -->
+      <div style="
+        padding:17px;
+        background:#f8fafc;
+        border-radius:10px;
+      ">
+
+        <p style="
+          margin:0 0 5px;
+          color:#6b7280;
+          font-size:12px;
+          font-weight:600;
+        ">
+          LOCATION
+        </p>
+
+        <p style="
+          margin:0;
+          color:#1f2937;
+          font-size:16px;
+          font-weight:700;
+        ">
+          📍 <%= @doctor.location.presence || "Not available" %>
+        </p>
+
+      </div>
+
+    </div>
 
   </div>
 
 
-  <!-- Availability -->
+  <!-- Main Content -->
+  <div style="
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(300px,380px);
+    gap:25px;
+    align-items:start;
+  ">
 
-  <div style="background: white; margin-top: 25px; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
 
-    <h2>Available Days</h2>
+    <!-- Left Column -->
+    <div>
 
-    <% if @doctor.doctor_availabilities.any? %>
 
-      <% @doctor.doctor_availabilities.each do |availability| %>
+      <!-- About -->
+      <div style="
+        background:white;
+        border:1px solid #e5e7eb;
+        border-radius:16px;
+        padding:28px;
+        box-shadow:0 2px 8px rgba(0,0,0,0.05);
+        margin-bottom:25px;
+      ">
 
-        <div style="padding: 12px 0; border-bottom: 1px solid #eee;">
+        <h2 style="
+          margin:0 0 15px;
+          color:#1f2937;
+          font-size:22px;
+        ">
+          About Dr. <%= @doctor.name %>
+        </h2>
 
-          <strong>
-  <%= availability.date.strftime("%d %B %Y") %>
-</strong> 
+        <p style="
+          margin:0;
+          color:#6b7280;
+          line-height:1.7;
+          font-size:15px;
+        ">
+          <%= @doctor.bio.presence || "Doctor information is not available yet." %>
+        </p>
 
-          :
+      </div>
 
-          <%= availability.start_time.strftime("%I:%M %p") %>
 
-          -
+      <!-- Availability -->
+      <div style="
+        background:white;
+        border:1px solid #e5e7eb;
+        border-radius:16px;
+        padding:28px;
+        box-shadow:0 2px 8px rgba(0,0,0,0.05);
+      ">
 
-          <%= availability.end_time.strftime("%I:%M %p") %>
+        <h2 style="
+          margin:0 0 6px;
+          color:#1f2937;
+          font-size:22px;
+        ">
+          Doctor Availability
+        </h2>
+
+        <p style="
+          margin:0 0 20px;
+          color:#6b7280;
+          font-size:14px;
+        ">
+          Available consultation dates and timings
+        </p>
+
+
+        <% if @doctor.doctor_availabilities.any? %>
+
+          <div style="
+            display:flex;
+            flex-direction:column;
+            gap:12px;
+          ">
+
+            <% @doctor.doctor_availabilities.each do |availability| %>
+
+              <div style="
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                gap:15px;
+                padding:16px;
+                background:#f8fafc;
+                border:1px solid #eef2f7;
+                border-radius:10px;
+                flex-wrap:wrap;
+              ">
+
+                <div>
+
+                  <p style="
+                    margin:0 0 5px;
+                    color:#1f2937;
+                    font-weight:700;
+                  ">
+                    📅 <%= availability.date.strftime("%d %B %Y") %>
+                  </p>
+
+                  <p style="
+                    margin:0;
+                    color:#6b7280;
+                    font-size:14px;
+                  ">
+                    <%= availability.start_time.strftime("%I:%M %p") %>
+                    -
+                    <%= availability.end_time.strftime("%I:%M %p") %>
+                  </p>
+
+                </div>
+
+
+                <span style="
+                  padding:6px 10px;
+                  background:#e8f5e9;
+                  color:#2e7d32;
+                  border-radius:20px;
+                  font-size:12px;
+                  font-weight:600;
+                ">
+                  Available
+                </span>
+
+              </div>
+
+            <% end %>
+
+          </div>
+
+        <% else %>
+
+          <div style="
+            padding:30px 15px;
+            text-align:center;
+            border:1px dashed #d1d5db;
+            border-radius:10px;
+          ">
+
+            <p style="
+              margin:0;
+              color:#6b7280;
+            ">
+              No availability has been added yet.
+            </p>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+    </div>
+
+
+    <!-- Booking Card -->
+    <div style="
+      background:white;
+      border:1px solid #dbeafe;
+      border-radius:16px;
+      padding:28px;
+      box-shadow:0 3px 12px rgba(0,0,0,0.06);
+      position:sticky;
+      top:20px;
+    ">
+
+      <p style="
+        margin:0 0 7px;
+        color:#1976d2;
+        font-size:13px;
+        font-weight:700;
+      ">
+        BOOK A CONSULTATION
+      </p>
+
+      <h2 style="
+        margin:0 0 10px;
+        color:#1f2937;
+        font-size:23px;
+      ">
+        Schedule Appointment
+      </h2>
+
+      <p style="
+        margin:0 0 22px;
+        color:#6b7280;
+        line-height:1.5;
+        font-size:14px;
+      ">
+        Select a date to see the available appointment slots.
+      </p>
+
+
+      <% if @doctor.doctor_availabilities.any? %>
+
+        <%= form_with url: slots_appointments_path,
+            method: :get,
+            local: true do |form| %>
+
+          <%= form.hidden_field :doctor_id,
+              value: @doctor.id %>
+
+
+          <div style="margin-bottom:18px;">
+
+            <%= form.label :date,
+                "Choose Date",
+                style: "
+                  display:block;
+                  margin-bottom:8px;
+                  color:#374151;
+                  font-size:14px;
+                  font-weight:600;
+                " %>
+
+            <%= form.date_field :date,
+                min: Date.current,
+                required: true,
+                style: "
+                  width:100%;
+                  padding:12px;
+                  border:1px solid #d1d5db;
+                  border-radius:8px;
+                  box-sizing:border-box;
+                  font-size:14px;
+                " %>
+
+          </div>
+
+
+          <%= form.submit "Check Available Slots",
+              style: "
+                width:100%;
+                padding:13px;
+                background:#1976d2;
+                color:white;
+                border:none;
+                border-radius:8px;
+                font-size:14px;
+                font-weight:600;
+                cursor:pointer;
+              " %>
+
+        <% end %>
+
+
+        <div style="
+          margin-top:18px;
+          padding-top:18px;
+          border-top:1px solid #eef2f7;
+        ">
+
+          <p style="
+            margin:0;
+            color:#6b7280;
+            font-size:13px;
+            line-height:1.5;
+          ">
+            💳 Payment will be completed securely after selecting an available slot.
+          </p>
+
+        </div>
+
+      <% else %>
+
+        <div style="
+          padding:20px;
+          background:#f8fafc;
+          border-radius:10px;
+          text-align:center;
+        ">
+
+          <p style="
+            margin:0;
+            color:#6b7280;
+            font-size:14px;
+          ">
+            This doctor has no available slots yet.
+          </p>
 
         </div>
 
       <% end %>
 
-    <% else %>
-
-      <p>No availability added yet.</p>
-
-    <% end %>
+    </div>
 
   </div>
-
-
-  <!-- Booking -->
-
-  <div style="background: white; margin-top: 25px; padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
-
-    <h2>Book an Appointment</h2>
-
-    <p>
-      Choose a date to see available appointment slots.
-    </p>
-
-    <% if @doctor.doctor_availabilities.any? %>
-
-      <%= form_with url: slots_appointments_path,
-          method: :get,
-          local: true do |form| %>
-
-        <%= form.hidden_field :doctor_id, value: @doctor.id %>
-
-        <div style="margin: 20px 0;">
-
-          <%= form.label :date, "Choose Date" %>
-
-          <br><br>
-
-          <%= form.date_field :date,
-              min: Date.current,
-              required: true %>
-
-        </div>
-
-        <%= form.submit "Check Available Slots" %>
-
-      <% end %>
-
-    <% else %>
-
-      <p>
-        This doctor has no available slots yet.
-      </p>
-
-    <% end %>
-
-  </div>
-
-
- <!-- Navigation -->
-
-<div style="margin-top: 30px;">
-
-  <%= link_to "← Back to Doctors",
-      doctors_path,
-      style: "
-        display:inline-block;
-        padding:10px 20px;
-        background:#1976d2;
-        color:white;
-        text-decoration:none;
-        border-radius:7px;
-      " %>
 
 </div>
